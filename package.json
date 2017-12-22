@@ -9,5 +9,8 @@
     "dev": "microbundle watch --strict --compress --output dist"
   },
   "author": "Kylee Tilley",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "node-fetch": "^1.7.3"
+  }
 }
