@@ -1,1 +1,1 @@
-class Browser {}
+export class Browser {}
