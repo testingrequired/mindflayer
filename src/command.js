@@ -1,6 +1,6 @@
 import fetch, { Headers } from "node-fetch";
 
-function encodeQueryString(params) {
+export function encodeQueryString(params) {
   const keys = Object.keys(params);
 
   if (keys.length === 0) {
@@ -15,12 +15,12 @@ function encodeQueryString(params) {
   );
 }
 
-export const command = (url, method = "GET", params = {}) => {
+export const command = (url, method = "GET", params = {}, fetch = fetch) => {
   const options = { method, headers: new Headers() };
 
   if (method === "POST") {
     options.body = JSON.stringify(params);
-    headers.append("Content-Type", "application/json");
+    options.headers.append("Content-Type", "application/json");
   } else if (method === "GET") {
     url += encodeQueryString(params);
   }
