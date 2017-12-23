@@ -1,13 +1,14 @@
 import { WebDriver } from "./webdriver";
 
 describe("WebDriver", () => {
-  let webdriver, remoteUrl, session, spy;
+  let webdriver, remoteUrl, session, commandMock;
 
   beforeEach(() => {
     remoteUrl = "http://localhost:4000";
     session = "foobar";
-    webdriver = new WebDriver(remoteUrl, session);
-    fetch.resetMocks();
+    commandMock = jest.fn();
+
+    webdriver = new WebDriver(remoteUrl, session, commandMock);
   });
 
   describe("remoteUrl", () => {
@@ -25,144 +26,122 @@ describe("WebDriver", () => {
   });
 
   describe("url", () => {
-    it("should call fetch", () => {
+    it("should call command", () => {
       webdriver.url;
 
-      expect(fetch.mock.calls[0]).toEqual([
+      expect(commandMock.mock.calls[0]).toEqual([
         `${webdriver.sessionUrl}/url`,
-        {
-          method: "GET"
-        }
+        "GET"
       ]);
     });
   });
 
   describe("title", () => {
-    it("should call fetch", () => {
+    it("should call command", () => {
       webdriver.title;
 
-      expect(fetch.mock.calls[0]).toEqual([
+      expect(commandMock.mock.calls[0]).toEqual([
         `${webdriver.sessionUrl}/title`,
-        {
-          method: "GET"
-        }
+        "GET"
       ]);
     });
   });
 
   describe("window", () => {
-    it("should call fetch", () => {
+    it("should call command", () => {
       webdriver.window;
 
-      expect(fetch.mock.calls[0]).toEqual([
+      expect(commandMock.mock.calls[0]).toEqual([
         `${webdriver.sessionUrl}/window`,
-        {
-          method: "GET"
-        }
+        "GET"
       ]);
     });
   });
 
   describe("windows", () => {
-    it("should call fetch", () => {
+    it("should call command", () => {
       webdriver.windows;
 
-      expect(fetch.mock.calls[0]).toEqual([
+      expect(commandMock.mock.calls[0]).toEqual([
         `${webdriver.sessionUrl}/window/handles`,
-        {
-          method: "GET"
-        }
+        "GET"
       ]);
     });
   });
 
   describe("rect", () => {
-    it("should call fetch", () => {
+    it("should call command", () => {
       webdriver.rect;
 
-      expect(fetch.mock.calls[0]).toEqual([
+      expect(commandMock.mock.calls[0]).toEqual([
         `${webdriver.sessionUrl}/window/rect`,
-        {
-          method: "GET"
-        }
+        "GET"
       ]);
     });
   });
 
   describe("activeElement", () => {
-    it("should call fetch", () => {
+    it("should call command", () => {
       webdriver.activeElement;
 
-      expect(fetch.mock.calls[0]).toEqual([
+      expect(commandMock.mock.calls[0]).toEqual([
         `${webdriver.sessionUrl}/element/active`,
-        {
-          method: "GET"
-        }
+        "GET"
       ]);
     });
   });
 
   describe("source", () => {
-    it("should call fetch", () => {
+    it("should call command", () => {
       webdriver.source;
 
-      expect(fetch.mock.calls[0]).toEqual([
+      expect(commandMock.mock.calls[0]).toEqual([
         `${webdriver.sessionUrl}/source`,
-        {
-          method: "GET"
-        }
+        "GET"
       ]);
     });
   });
 
   describe("cookies", () => {
-    it("should call fetch", () => {
+    it("should call command", () => {
       webdriver.cookies;
 
-      expect(fetch.mock.calls[0]).toEqual([
+      expect(commandMock.mock.calls[0]).toEqual([
         `${webdriver.sessionUrl}/cookie`,
-        {
-          method: "GET"
-        }
+        "GET"
       ]);
     });
   });
 
   describe("cookie", () => {
-    it("should call fetch", () => {
+    it("should call command", () => {
       webdriver.cookie("foobar");
 
-      expect(fetch.mock.calls[0]).toEqual([
+      expect(commandMock.mock.calls[0]).toEqual([
         `${webdriver.sessionUrl}/cookie/foobar`,
-        {
-          method: "GET"
-        }
+        "GET"
       ]);
     });
   });
 
   describe("alertText", () => {
-    it("should call fetch", () => {
+    it("should call command", () => {
       webdriver.alertText;
 
-      expect(fetch.mock.calls[0]).toEqual([
+      expect(commandMock.mock.calls[0]).toEqual([
         `${webdriver.sessionUrl}/alert/text`,
-        {
-          method: "GET"
-        }
+        "GET"
       ]);
     });
   });
 
   describe("screenshot", () => {
-    it("should call fetch", () => {
+    it("should call command", () => {
       webdriver.screenshot;
 
-      expect(fetch.mock.calls[0]).toEqual([
+      expect(commandMock.mock.calls[0]).toEqual([
         `${webdriver.sessionUrl}/screenshot`,
-        {
-          method: "GET"
-        }
+        "GET"
       ]);
     });
   });

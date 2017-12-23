@@ -1,10 +1,10 @@
-import fetch from "node-fetch";
 import { command } from "./command";
 
 export class WebDriver {
-  constructor(remoteUrl, session) {
+  constructor(remoteUrl, session, command = command) {
     this.remoteUrl = remoteUrl;
     this.session = session;
+    this.command = command;
   }
 
   get sessionUrl() {
@@ -12,50 +12,50 @@ export class WebDriver {
   }
 
   go(url) {
-    return command(`${this.sessionUrl}/url`, "POST", { url });
+    return this.command(`${this.sessionUrl}/url`, "POST", { url });
   }
 
   get url() {
-    return command(`${this.sessionUrl}/url`);
+    return this.command(`${this.sessionUrl}/url`, "GET");
   }
 
   get title() {
-    return command(`${this.sessionUrl}/title`);
+    return this.command(`${this.sessionUrl}/title`, "GET");
   }
 
   get window() {
-    return command(`${this.sessionUrl}/window`);
+    return this.command(`${this.sessionUrl}/window`, "GET");
   }
 
   get windows() {
-    return command(`${this.sessionUrl}/window/handles`);
+    return this.command(`${this.sessionUrl}/window/handles`, "GET");
   }
 
   get rect() {
-    return command(`${this.sessionUrl}/window/rect`);
+    return this.command(`${this.sessionUrl}/window/rect`, "GET");
   }
 
   get activeElement() {
-    return command(`${this.sessionUrl}/element/active`);
+    return this.command(`${this.sessionUrl}/element/active`, "GET");
   }
 
   get source() {
-    return command(`${this.sessionUrl}/source`);
+    return this.command(`${this.sessionUrl}/source`, "GET");
   }
 
   get cookies() {
-    return command(`${this.sessionUrl}/cookie`);
+    return this.command(`${this.sessionUrl}/cookie`, "GET");
   }
 
   cookie(name) {
-    return command(`${this.sessionUrl}/cookie/${name}`);
+    return this.command(`${this.sessionUrl}/cookie/${name}`, "GET");
   }
 
   get alertText() {
-    return command(`${this.sessionUrl}/alert/text`);
+    return this.command(`${this.sessionUrl}/alert/text`, "GET");
   }
 
   get screenshot() {
-    return command(`${this.sessionUrl}/screenshot`);
+    return this.command(`${this.sessionUrl}/screenshot`, "GET");
   }
 }
