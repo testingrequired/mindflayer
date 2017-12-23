@@ -21,7 +21,7 @@ export const command = (url, method = "GET", params = {}, fetch = fetch) => {
   if (method === "POST") {
     options.body = JSON.stringify(params);
     options.headers.append("Content-Type", "application/json");
-  } else if (method === "GET") {
+  } else {
     url += encodeQueryString(params);
   }
 

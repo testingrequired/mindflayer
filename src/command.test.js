@@ -30,6 +30,20 @@ describe("command", () => {
     fetchStub = jest.fn();
   });
 
+  it("should use default method of GET", () => {
+    command(url, undefined, undefined, fetchStub);
+
+    expect(fetchStub.mock.calls[0]).toEqual([
+      url,
+      {
+        method: "GET",
+        headers: {
+          _headers: {}
+        }
+      }
+    ]);
+  });
+
   describe("GET", () => {
     beforeEach(() => {
       command(url, "GET", {}, fetchStub);
