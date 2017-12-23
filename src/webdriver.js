@@ -16,46 +16,46 @@ export class WebDriver {
   }
 
   get url() {
-    return command(`${this.sessionUrl}/url`, "GET");
+    return command(`${this.sessionUrl}/url`);
   }
 
   get title() {
-    return command(`${this.sessionUrl}/title`, "GET");
+    return command(`${this.sessionUrl}/title`);
   }
 
   get window() {
-    return command(`${this.sessionUrl}/window`, "GET");
+    return command(`${this.sessionUrl}/window`);
   }
 
   get windows() {
-    return command(`${this.sessionUrl}/window/handles`, "GET");
+    return command(`${this.sessionUrl}/window/handles`);
   }
 
   get rect() {
-    return command(`${this.sessionUrl}/window/rect`, "GET");
+    return command(`${this.sessionUrl}/window/rect`);
   }
 
   get activeElement() {
-    return command(`${this.sessionUrl}/element/active`, "GET");
+    return command(`${this.sessionUrl}/element/active`);
   }
 
   get source() {
-    return command(`${this.sessionUrl}/source`, "GET");
+    return command(`${this.sessionUrl}/source`);
   }
 
   get cookies() {
-    return command(`${this.sessionUrl}/cookie`, "GET");
+    return command(`${this.sessionUrl}/cookie`);
   }
 
   cookie(name) {
-    return command(`${this.sessionUrl}/cookie/${name}`, "GET");
+    return command(`${this.sessionUrl}/cookie/${name}`);
   }
 
   get alertText() {
-    return command(`${this.sessionUrl}/alert/text`, "GET");
+    return command(`${this.sessionUrl}/alert/text`);
   }
 
   get screenshot() {
-    return command(`${this.sessionUrl}/screenshot`, "GET");
+    return command(`${this.sessionUrl}/screenshot`);
   }
 }

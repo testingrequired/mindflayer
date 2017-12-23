@@ -15,7 +15,7 @@ function encodeQueryString(params) {
   );
 }
 
-export const command = (url, method, params = {}) => {
+export const command = (url, method = "GET", params = {}) => {
   const options = { method };
 
   if (method === "POST") {
