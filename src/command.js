@@ -1,4 +1,4 @@
-import "isomorphic-fetch";
+import fetch, { Headers } from "node-fetch";
 
 function encodeQueryString(params) {
   const keys = Object.keys(params);
@@ -16,11 +16,10 @@ function encodeQueryString(params) {
 }
 
 export const command = (url, method = "GET", params = {}) => {
-  const options = { method };
+  const options = { method, headers: new Headers() };
 
   if (method === "POST") {
     options.body = JSON.stringify(params);
-    options.headers = new Headers();
     headers.append("Content-Type", "application/json");
   } else if (method === "GET") {
     url += encodeQueryString(params);
