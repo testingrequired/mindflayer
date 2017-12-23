@@ -4,13 +4,14 @@
   "description": "Prototype selenium library",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "build": "microbundle --strict --compress --output dist",
     "dev": "microbundle watch --strict --compress --output dist"
   },
   "author": "Kylee Tilley",
   "license": "MIT",
   "dependencies": {
+    "jest": "^22.0.4",
     "node-fetch": "^1.7.3"
   }
 }
