@@ -25,6 +25,17 @@ describe("WebDriver", () => {
     });
   });
 
+  describe("timeouts", () => {
+    it("should call command", () => {
+      webdriver.timeouts;
+
+      expect(commandMock.mock.calls[0]).toEqual([
+        `${webdriver.sessionUrl}/timeouts`,
+        "GET"
+      ]);
+    });
+  });
+
   describe("url", () => {
     it("should call command", () => {
       webdriver.url;
@@ -32,6 +43,53 @@ describe("WebDriver", () => {
       expect(commandMock.mock.calls[0]).toEqual([
         `${webdriver.sessionUrl}/url`,
         "GET"
+      ]);
+    });
+  });
+
+  describe("go", () => {
+    it("should call command", () => {
+      const url = "someurl";
+
+      webdriver.go(url);
+
+      expect(commandMock.mock.calls[0]).toEqual([
+        `${webdriver.sessionUrl}/url`,
+        "POST",
+        { url }
+      ]);
+    });
+  });
+
+  describe("back", () => {
+    it("should call command", () => {
+      webdriver.back();
+
+      expect(commandMock.mock.calls[0]).toEqual([
+        `${webdriver.sessionUrl}/back`,
+        "POST"
+      ]);
+    });
+  });
+
+  describe("forward", () => {
+    it("should call command", () => {
+      webdriver.forward();
+
+      expect(commandMock.mock.calls[0]).toEqual([
+        `${webdriver.sessionUrl}/forward`,
+        "POST"
+      ]);
+    });
+  });
+
+  describe("refresh", () => {
+    it("should call command", () => {
+      webdriver.refresh();
+
+      expect(commandMock.mock.calls[0]).toEqual([
+        `${webdriver.sessionUrl}/refresh`,
+        "POST"
       ]);
     });
   });
@@ -58,6 +116,33 @@ describe("WebDriver", () => {
     });
   });
 
+  describe("close", () => {
+    it("should call command", () => {
+      const handle = "widowhandle";
+
+      webdriver.close(handle);
+
+      expect(commandMock.mock.calls[0]).toEqual([
+        `${webdriver.sessionUrl}/window`,
+        "DELETE"
+      ]);
+    });
+  });
+
+  describe("switchWindow", () => {
+    it("should call command", () => {
+      const handle = "widowhandle";
+
+      webdriver.switchWindow(handle);
+
+      expect(commandMock.mock.calls[0]).toEqual([
+        `${webdriver.sessionUrl}/window`,
+        "POST",
+        { handle }
+      ]);
+    });
+  });
+
   describe("windows", () => {
     it("should call command", () => {
       webdriver.windows;
@@ -69,6 +154,33 @@ describe("WebDriver", () => {
     });
   });
 
+  describe("switchFrame", () => {
+    it("should call command", () => {
+      const handle = "framehandle";
+
+      webdriver.switchFrame(handle);
+
+      expect(commandMock.mock.calls[0]).toEqual([
+        `${webdriver.sessionUrl}/frame`,
+        "POST",
+        { handle }
+      ]);
+    });
+  });
+
+  describe("switchToParentFrame", () => {
+    it("should call command", () => {
+      const handle = "framehandle";
+
+      webdriver.switchToParentFrame();
+
+      expect(commandMock.mock.calls[0]).toEqual([
+        `${webdriver.sessionUrl}/frame/parent`,
+        "POST"
+      ]);
+    });
+  });
+
   describe("rect", () => {
     it("should call command", () => {
       webdriver.rect;
@@ -76,6 +188,56 @@ describe("WebDriver", () => {
       expect(commandMock.mock.calls[0]).toEqual([
         `${webdriver.sessionUrl}/window/rect`,
         "GET"
+      ]);
+    });
+  });
+
+  describe("setRect", () => {
+    it("should call command", () => {
+      const width = 1920;
+      const height = 1080;
+      const x = 0;
+      const y = 0;
+
+      webdriver.setRect({ width, height, x, y });
+
+      expect(commandMock.mock.calls[0]).toEqual([
+        `${webdriver.sessionUrl}/window/rect`,
+        "POST",
+        { width, height, x, y }
+      ]);
+    });
+  });
+
+  describe("maximize", () => {
+    it("should call command", () => {
+      webdriver.maximize();
+
+      expect(commandMock.mock.calls[0]).toEqual([
+        `${webdriver.sessionUrl}/window/maximize`,
+        "POST"
+      ]);
+    });
+  });
+
+  describe("minimize", () => {
+    it("should call command", () => {
+      webdriver.minimize();
+
+      expect(commandMock.mock.calls[0]).toEqual([
+        `${webdriver.sessionUrl}/window/minimize`,
+        "POST"
+      ]);
+    });
+  });
+
+  describe("fullscreen", () => {
+    it("should call command", () => {
+      webdriver.fullscreen();
+
+      expect(commandMock.mock.calls[0]).toEqual([
+        `${webdriver.sessionUrl}/window/fullscreen`,
+        "POST"
       ]);
     });
   });
@@ -120,6 +282,74 @@ describe("WebDriver", () => {
       expect(commandMock.mock.calls[0]).toEqual([
         `${webdriver.sessionUrl}/cookie/foobar`,
         "GET"
+      ]);
+    });
+  });
+
+  describe("addCookie", () => {
+    it("should call command", () => {
+      const cookie = {
+        name: "cookiename",
+        value: "cookievalue",
+        path: "cookiepath",
+        domain: "cookiedomain",
+        secure: "cookiesecure",
+        httpOnly: "cookiehttponly",
+        expiry: "cookieexpiry"
+      };
+
+      webdriver.addCookie(cookie);
+
+      expect(commandMock.mock.calls[0]).toEqual([
+        `${webdriver.sessionUrl}/cookie`,
+        "POST",
+        { cookie }
+      ]);
+    });
+  });
+
+  describe("deleteCookie", () => {
+    it("should call command", () => {
+      const name = "cookiename";
+
+      webdriver.deleteCookie(name);
+
+      expect(commandMock.mock.calls[0]).toEqual([
+        `${webdriver.sessionUrl}/cookie/${name}`,
+        "DELETE"
+      ]);
+    });
+  });
+
+  describe("deleteCookies", () => {
+    it("should call command", () => {
+      webdriver.deleteCookies();
+
+      expect(commandMock.mock.calls[0]).toEqual([
+        `${webdriver.sessionUrl}/cookie`,
+        "DELETE"
+      ]);
+    });
+  });
+
+  describe("dismissAlert", () => {
+    it("should call command", () => {
+      webdriver.dismissAlert();
+
+      expect(commandMock.mock.calls[0]).toEqual([
+        `${webdriver.sessionUrl}/alert/dismiss`,
+        "POST"
+      ]);
+    });
+  });
+
+  describe("acceptAlert", () => {
+    it("should call command", () => {
+      webdriver.acceptAlert();
+
+      expect(commandMock.mock.calls[0]).toEqual([
+        `${webdriver.sessionUrl}/alert/accept`,
+        "POST"
       ]);
     });
   });
