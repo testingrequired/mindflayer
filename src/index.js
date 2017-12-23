@@ -3,3 +3,4 @@ export { WebElement } from "./webelement";
 export { Browser } from "./browser";
 export { ProxyOptions } from "./proxyoptions";
 export { CapabilityOptions } from "./capabilityoptions";
+export { Environment } from "./environment";
