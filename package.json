@@ -5,7 +5,7 @@
   "main": "dist/mindflayer.js",
   "scripts": {
     "test": "jest",
-    "build": "microbundle --strict --compress --output dist",
+    "build": "rollup src/index.js -m -e 'node-fetch' -f cjs -o dist/mindflayer.js",
     "dev": "microbundle watch --strict --compress --output dist",
     "prepublish": "npm run build"
   },
@@ -15,6 +15,7 @@
     "jest": "^22.0.4",
     "jest-fetch-mock": "^1.4.0",
     "node-fetch": "^1.7.3",
+    "rollup": "^0.53.0",
     "source-map-support": "^0.5.0"
   },
   "devDependencies": {
