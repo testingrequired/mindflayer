@@ -5,8 +5,10 @@
   "main": "dist/mindflayer.js",
   "scripts": {
     "test": "jest",
-    "build": "rollup src/index.js -m -e 'node-fetch' -f cjs -o dist/mindflayer.js",
-    "dev": "microbundle watch --strict --compress --output dist",
+    "build":
+      "rollup src/index.js -m -e 'node-fetch' -f cjs -o dist/mindflayer.js",
+    "dev":
+      "rollup src/index.js -w -m -e 'node-fetch' -f cjs -o dist/mindflayer.js",
     "prepublish": "npm run build"
   },
   "author": "Kylee Tilley",
@@ -26,8 +28,6 @@
   },
   "jest": {
     "automock": false,
-    "setupFiles": [
-      "./setupJest.js"
-    ]
+    "setupFiles": ["./setupJest.js"]
   }
 }
