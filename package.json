@@ -1,8 +1,8 @@
 {
-  "name": "se",
+  "name": "mindflayer",
   "version": "0.1.0",
   "description": "Prototype selenium library",
-  "main": "src/index.js",
+  "main": "dist/mindflayer.js",
   "scripts": {
     "test": "jest",
     "build": "microbundle --strict --compress --output dist",
