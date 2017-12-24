@@ -1,10 +1,10 @@
 import { command } from "./command";
 
 export class WebDriver {
-  constructor(remoteUrl, session, command = command) {
+  constructor(remoteUrl, session, commandFn = command) {
     this.remoteUrl = remoteUrl;
     this.session = session;
-    this.command = command;
+    this.command = commandFn;
   }
 
   get sessionUrl() {
