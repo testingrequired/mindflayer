@@ -28,10 +28,13 @@ describe("command", () => {
   beforeEach(() => {
     url = "someurl";
     fetchStub = jest.fn();
+    fetchStub.mockReturnValue({
+      json: jest.fn()
+    });
   });
 
   it("should use default method of GET", () => {
-    command(url, undefined, undefined, fetchStub);
+    command(url, undefined, undefined, fetchStub).catch(e => console.log(e));
 
     expect(fetchStub.mock.calls[0]).toEqual([
       url,
@@ -48,7 +51,7 @@ describe("command", () => {
 
   describe("GET", () => {
     beforeEach(() => {
-      command(url, "GET", {}, fetchStub);
+      command(url, "GET", {}, fetchStub).catch(e => console.log(e));
     });
 
     it("calls fetch", () => {
@@ -68,7 +71,9 @@ describe("command", () => {
 
   describe("POST", () => {
     beforeEach(() => {
-      command(url, "POST", { foo: "bar" }, fetchStub);
+      command(url, "POST", { foo: "bar" }, fetchStub).catch(e =>
+        console.log(e)
+      );
     });
 
     it("should call fetch", () => {
