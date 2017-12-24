@@ -4,15 +4,38 @@ const desiredCapabilities = new mf.CapabilityOptions();
 desiredCapabilities.browserName = "chrome";
 
 (async () => {
-  const response = await mf.command(`http://localhost:9515/session`, "POST", {
-    desiredCapabilities
-  });
+  let sessionResponse, sessionId, driver;
 
-  const status = await response.status;
+  try {
+    sessionResponse = await mf.command(
+      `http://localhost:9515/session`,
+      "POST",
+      {
+        desiredCapabilities
+      }
+    );
+  } catch (e) {
+    console.error(`Error starting session: ${e}`);
+  }
 
-  const body = await response.json();
+  try {
+    sessionId = sessionResponse.sessionId;
+  } catch (e) {
+    console.error(`Error getting session id: ${e}`);
+  }
 
-  const sessionId = body.sessionId;
+  driver = new mf.WebDriver(`http://localhost:9515`, sessionId);
 
-  console.log(sessionId);
+  try {
+    await driver.go("http://google.com");
+  } catch (e) {
+    console.error(`Error going to url: ${e}`);
+  }
+
+  try {
+    const title = await driver.title;
+    console.log(title);
+  } catch (e) {
+    console.error(`Error getting title: ${e}`);
+  }
 })();
