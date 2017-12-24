@@ -14,7 +14,8 @@
   "dependencies": {
     "jest": "^22.0.4",
     "jest-fetch-mock": "^1.4.0",
-    "node-fetch": "^1.7.3"
+    "node-fetch": "^1.7.3",
+    "source-map-support": "^0.5.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -24,6 +25,8 @@
   },
   "jest": {
     "automock": false,
-    "setupFiles": ["./setupJest.js"]
+    "setupFiles": [
+      "./setupJest.js"
+    ]
   }
 }
