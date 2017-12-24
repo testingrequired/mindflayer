@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest",
     "build": "microbundle --strict --compress --output dist",
-    "dev": "microbundle watch --strict --compress --output dist"
+    "dev": "microbundle watch --strict --compress --output dist",
+    "prepublish": "npm run build"
   },
   "author": "Kylee Tilley",
   "license": "MIT",
