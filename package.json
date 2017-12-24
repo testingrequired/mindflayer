@@ -1,6 +1,6 @@
 {
   "name": "mindflayer",
-  "version": "0.1.0",
+  "version": "0.1.0-alpha.1",
   "description": "Prototype selenium library",
   "main": "dist/mindflayer.js",
   "scripts": {
