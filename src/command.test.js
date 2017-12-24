@@ -38,7 +38,9 @@ describe("command", () => {
       {
         method: "GET",
         headers: {
-          _headers: {}
+          _headers: {
+            accept: ["application/json"]
+          }
         }
       }
     ]);
@@ -55,7 +57,9 @@ describe("command", () => {
         {
           method: "GET",
           headers: {
-            _headers: {}
+            _headers: {
+              accept: ["application/json"]
+            }
           }
         }
       ]);
@@ -75,7 +79,8 @@ describe("command", () => {
           body: '{"foo":"bar"}',
           headers: {
             _headers: {
-              "content-type": ["application/json"]
+              "content-type": ["application/json"],
+              accept: ["application/json"]
             }
           }
         }

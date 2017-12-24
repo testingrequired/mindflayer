@@ -15,8 +15,15 @@ export function encodeQueryString(params) {
   );
 }
 
-export const command = (url, method = "GET", params = {}, fetchFn = fetch) => {
+export const command = async (
+  url,
+  method = "GET",
+  params = {},
+  fetchFn = fetch
+) => {
   const options = { method, headers: new Headers() };
+
+  options.headers.append("Accept", "application/json");
 
   if (method === "POST") {
     options.body = JSON.stringify(params);
@@ -25,5 +32,8 @@ export const command = (url, method = "GET", params = {}, fetchFn = fetch) => {
     url += encodeQueryString(params);
   }
 
-  return fetchFn(url, options);
+  const response = await fetchFn(url, options);
+  const body = await response.json();
+
+  return body;
 };
