@@ -1,13 +1,13 @@
 export class CapabilityOptions {
-  constructor() {
-    this.browserName = undefined;
-    this.browserVersion = undefined;
-    this.platformName = undefined;
-    this.acceptInsecureCerts = undefined;
-    this.pageLoadStrategy = undefined;
-    this.proxy = undefined;
-    this.setWindowRect = undefined;
-    this.timeouts = undefined;
-    this.unhandledPromptBehavior = undefined;
+  constructor(capabilities = {}) {
+    this.browserName = capabilities.browserName;
+    this.browserVersion = capabilities.browserVersion;
+    this.platformName = capabilities.platformName;
+    this.acceptInsecureCerts = capabilities.acceptInsecureCerts;
+    this.pageLoadStrategy = capabilities.pageLoadStrategy;
+    this.proxy = capabilities.proxy;
+    this.setWindowRect = capabilities.setWindowRect;
+    this.timeouts = capabilities.timeouts;
+    this.unhandledPromptBehavior = capabilities.unhandledPromptBehavior;
   }
 }
