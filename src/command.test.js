@@ -28,9 +28,7 @@ describe("command", () => {
   beforeEach(() => {
     url = "someurl";
     fetchStub = jest.fn();
-    fetchStub.mockReturnValue({
-      json: jest.fn()
-    });
+    fetchStub.mockReturnValue(Promise.resolve({}));
   });
 
   it("should use default method of GET", () => {

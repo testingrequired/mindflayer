@@ -9,7 +9,7 @@ export class WebDriver {
   }
 
   async start() {
-    let sessionResponse, sessionId, driver;
+    let sessionResponse, responseData, sessionId, driver;
 
     try {
       sessionResponse = await this.command(
@@ -21,6 +21,12 @@ export class WebDriver {
       );
     } catch (e) {
       console.error(`Error starting session: ${e}`);
+    }
+
+    try {
+      responseData = await sessionResponse.json();
+    } catch (e) {
+      console.error(`Error getting session response data: ${e}`);
     }
 
     try {

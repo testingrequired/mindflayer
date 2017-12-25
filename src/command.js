@@ -15,12 +15,7 @@ export function encodeQueryString(params) {
   );
 }
 
-export const command = async (
-  url,
-  method = "GET",
-  params = {},
-  fetchFn = fetch
-) => {
+export const command = (url, method = "GET", params = {}, fetchFn = fetch) => {
   const options = { method, headers: new Headers() };
 
   options.headers.append("Accept", "application/json");
@@ -32,8 +27,5 @@ export const command = async (
     url += encodeQueryString(params);
   }
 
-  const response = await fetchFn(url, options);
-  const body = await response.json();
-
-  return body;
+  return fetchFn(url, options);
 };
