@@ -1,14 +1,40 @@
 import { command } from "./command";
 
 export class WebDriver {
-  constructor(remoteUrl, session, commandFn = command) {
+  constructor(remoteUrl, desiredCapabilities, commandFn = command) {
     this.remoteUrl = remoteUrl;
-    this.session = session;
+    this.desiredCapabilities = desiredCapabilities;
+    this.sessionId = undefined;
     this.command = commandFn;
   }
 
+  async start() {
+    let sessionResponse, sessionId, driver;
+
+    try {
+      sessionResponse = await this.command(
+        `${this.remoteUrl}/session`,
+        "POST",
+        {
+          desiredCapabilities: this.desiredCapabilities
+        }
+      );
+    } catch (e) {
+      console.error(`Error starting session: ${e}`);
+    }
+
+    try {
+      sessionId = sessionResponse.sessionId;
+      this.sessionId = sessionId;
+      console.info(`Session ID: ${this.sessionId}`);
+      console.info(`Session URL: ${this.sessionUrl}`);
+    } catch (e) {
+      console.error(`Error getting session id: ${e}`);
+    }
+  }
+
   get sessionUrl() {
-    return `${this.remoteUrl}/session/${this.session}`;
+    return `${this.remoteUrl}/session/${this.sessionId}`;
   }
 
   go(url) {

@@ -1,14 +1,14 @@
 import { WebDriver } from "./webdriver";
 
 describe("WebDriver", () => {
-  let webdriver, remoteUrl, session, commandMock;
+  let webdriver, remoteUrl, desiredCapabilities, commandMock;
 
   beforeEach(() => {
     remoteUrl = "http://localhost:4000";
-    session = "foobar";
+    desiredCapabilities = { browserName: "chrome" };
     commandMock = jest.fn();
 
-    webdriver = new WebDriver(remoteUrl, session, commandMock);
+    webdriver = new WebDriver(remoteUrl, desiredCapabilities, commandMock);
   });
 
   describe("remoteUrl", () => {
@@ -18,10 +18,10 @@ describe("WebDriver", () => {
     });
   });
 
-  describe("session", () => {
-    it("should have session", () => {
-      expect(webdriver).toHaveProperty("session");
-      expect(webdriver.session).toEqual(session);
+  describe("desiredCapabilities", () => {
+    it("should have desiredCapabilities", () => {
+      expect(webdriver).toHaveProperty("desiredCapabilities");
+      expect(webdriver.desiredCapabilities).toEqual(desiredCapabilities);
     });
   });
 
