@@ -26,21 +26,21 @@ const { CapabilityOptions, WebDriver } = require("mindflayer");
 
 ## Progress
 
-| Done | Method | Path                                                           | Description                |
-| ---- | ------ | -------------------------------------------------------------- | -------------------------- |
-| [ ]  | POST   | /session                                                       | New Session                |
+| Done | Method | Path                                                           | Description                | API                |
+| ---- | ------ | -------------------------------------------------------------- | -------------------------- | ------------------ |
+| [x]  | POST   | /session                                                       | New Session                | `driver.start()`   |
 | [ ]  | DELETE | /session/{session id}                                          | Delete Session             |
 | [ ]  | GET    | /status                                                        | Status                     |
 | [ ]  | GET    | /session/{session id}/timeouts                                 | Get Timeouts               |
 | [ ]  | POST   | /session/{session id}/timeouts                                 | Set Timeouts               |
-| [ ]  | POST   | /session/{session id}/url                                      | Go                         |
+| [ ]  | POST   | /session/{session id}/url                                      | Go                         | `driver.go(url)`   |
 | [ ]  | GET    | /session/{session id}/url                                      | Get Current Url            |
-| [ ]  | POST   | /session/{session id}/back                                     | Back                       |
-| [ ]  | POST   | /session/{session id}/forward                                  | Foward                     |
-| [ ]  | POST   | /session/{session id}/refresh                                  | Refresh                    |
+| [x]  | POST   | /session/{session id}/back                                     | Back                       | `driver.back()`    |
+| [x]  | POST   | /session/{session id}/forward                                  | Foward                     | `driver.forward()` |
+| [x]  | POST   | /session/{session id}/refresh                                  | Refresh                    | `driver.refresh()` |
 | [ ]  | GET    | /session/{session id}/title                                    | Get Title                  |
 | [ ]  | GET    | /session/{session id}/window                                   | Get Window Handle          |
-| [ ]  | DELETE | /session/{session id}/window                                   | Close Window               |
+| [x]  | DELETE | /session/{session id}/window                                   | Close Window               | `driver.close()`   |
 | [ ]  | POST   | /session/{session id}/window                                   | Switch To Window           |
 | [ ]  | GET    | /session/{session id}/window/handles                           | Get Window Handles         |
 | [ ]  | POST   | /session/{session id}/frame                                    | Switch To Frame            |
