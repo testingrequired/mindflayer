@@ -24,6 +24,14 @@ const { CapabilityOptions, WebDriver } = require("mindflayer");
 })();
 ```
 
+## Planned Features
+
+* Linked WebElement references
+* Never get stale element references
+* Better debugging
+* Custom WebElement implementations (e.g. WebElement as Page Objects)
+* Utility WebDriver & WebElement methods
+
 ## Progress
 
 | Done | Method | Path                                                           | Description                | API                |
