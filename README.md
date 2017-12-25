@@ -13,7 +13,7 @@ const { CapabilityOptions, WebDriver } = require("mindflayer");
 
 (async () => {
   const desiredCapabilities = new CapabilityOptions({
-    browserName: "chome"
+    browserName: "chrome"
   });
 
   const driver = new WebDriver(`http://localhost:9515`, desiredCapabilities);
