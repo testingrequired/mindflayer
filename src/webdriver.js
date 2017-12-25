@@ -30,7 +30,7 @@ export class WebDriver {
     }
 
     try {
-      sessionId = sessionResponse.sessionId;
+      sessionId = responseData.sessionId;
       this.sessionId = sessionId;
       console.info(`Session ID: ${this.sessionId}`);
       console.info(`Session URL: ${this.sessionUrl}`);
