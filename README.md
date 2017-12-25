@@ -46,7 +46,7 @@ const { CapabilityOptions, WebDriver } = require("mindflayer");
 | ✅   | POST   | /session/{session id}/back                                     | Back                       | `driver.back()`    |
 | ✅   | POST   | /session/{session id}/forward                                  | Foward                     | `driver.forward()` |
 | ✅   | POST   | /session/{session id}/refresh                                  | Refresh                    | `driver.refresh()` |
-|      | GET    | /session/{session id}/title                                    | Get Title                  |
+| ✅   | GET    | /session/{session id}/title                                    | Get Title                  | `driver.title`     |
 |      | GET    | /session/{session id}/window                                   | Get Window Handle          |
 | ✅   | DELETE | /session/{session id}/window                                   | Close Window               | `driver.close()`   |
 |      | POST   | /session/{session id}/window                                   | Switch To Window           |
