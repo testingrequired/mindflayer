@@ -32,7 +32,7 @@ const { CapabilityOptions, WebDriver } = require("mindflayer");
 * Custom WebElement implementations (e.g. WebElement as Page Objects)
 * Utility WebDriver & WebElement methods
 
-## Progress
+## Webdriver Implementation Progress
 
 | Done | Method | Path                                                           | Description                | API                |
 | ---- | ------ | -------------------------------------------------------------- | -------------------------- | ------------------ |
