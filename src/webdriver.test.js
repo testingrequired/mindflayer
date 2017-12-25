@@ -1,12 +1,18 @@
 import { WebDriver } from "./webdriver";
 
 describe("WebDriver", () => {
-  let webdriver, remoteUrl, desiredCapabilities, commandMock;
+  let webdriver, remoteUrl, desiredCapabilities, commandMock, responseJsonMock;
 
   beforeEach(() => {
     remoteUrl = "http://localhost:4000";
     desiredCapabilities = { browserName: "chrome" };
     commandMock = jest.fn();
+    responseJsonMock = jest.fn();
+    commandMock.mockReturnValue(
+      Promise.resolve({
+        json: responseJsonMock
+      })
+    );
 
     webdriver = new WebDriver(remoteUrl, desiredCapabilities, commandMock);
   });
@@ -95,6 +101,14 @@ describe("WebDriver", () => {
   });
 
   describe("title", () => {
+    beforeEach(() => {
+      responseJsonMock.mockReturnValue(
+        Promise.resolve({
+          value: "foo"
+        })
+      );
+    });
+
     it("should call command", () => {
       webdriver.title;
 
@@ -102,6 +116,10 @@ describe("WebDriver", () => {
         `${webdriver.sessionUrl}/title`,
         "GET"
       ]);
+    });
+
+    it.only("should return correct title", async () => {
+      expect(await webdriver.title).toEqual("foo");
     });
   });
 
