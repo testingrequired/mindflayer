@@ -68,7 +68,11 @@ export class WebDriver {
   }
 
   get title() {
-    return this.command(`${this.sessionUrl}/title`, "GET");
+    return (async () => {
+      const response = await this.command(`${this.sessionUrl}/title`, "GET");
+      const data = await response.json();
+      return data.value;
+    })();
   }
 
   get window() {

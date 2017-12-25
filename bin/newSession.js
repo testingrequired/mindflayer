@@ -9,5 +9,9 @@ const mf = require("../dist/mindflayer");
 
   await driver.start();
   await driver.go("http://google.com");
+
+  const title = await driver.title;
+  console.log(title);
+
   await driver.close();
 })();
