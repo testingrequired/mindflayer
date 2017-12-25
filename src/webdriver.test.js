@@ -4,7 +4,7 @@ describe("WebDriver", () => {
   let webdriver, remoteUrl, desiredCapabilities, commandMock, responseJsonMock;
 
   beforeEach(() => {
-    remoteUrl = "http://localhost:4000";
+    remoteUrl = chance.url();
     desiredCapabilities = { browserName: "chrome" };
     commandMock = jest.fn();
     responseJsonMock = jest.fn();
@@ -55,7 +55,7 @@ describe("WebDriver", () => {
 
   describe("go", () => {
     it("should call command", () => {
-      const url = "someurl";
+      const url = chance.url();
 
       webdriver.go(url);
 
@@ -101,12 +101,11 @@ describe("WebDriver", () => {
   });
 
   describe("title", () => {
+    let value;
+
     beforeEach(() => {
-      responseJsonMock.mockReturnValue(
-        Promise.resolve({
-          value: "foo"
-        })
-      );
+      value = chance.guid();
+      responseJsonMock.mockReturnValue(Promise.resolve({ value }));
     });
 
     it("should call command", () => {
@@ -118,8 +117,8 @@ describe("WebDriver", () => {
       ]);
     });
 
-    it.only("should return correct title", async () => {
-      expect(await webdriver.title).toEqual("foo");
+    it("should return correct title", async () => {
+      expect(await webdriver.title).toEqual(value);
     });
   });
 
@@ -136,7 +135,7 @@ describe("WebDriver", () => {
 
   describe("close", () => {
     it("should call command", () => {
-      const handle = "widowhandle";
+      const handle = chance.guid();
 
       webdriver.close(handle);
 
@@ -149,7 +148,7 @@ describe("WebDriver", () => {
 
   describe("switchWindow", () => {
     it("should call command", () => {
-      const handle = "widowhandle";
+      const handle = chance.guid();
 
       webdriver.switchWindow(handle);
 
@@ -174,7 +173,7 @@ describe("WebDriver", () => {
 
   describe("switchFrame", () => {
     it("should call command", () => {
-      const handle = "framehandle";
+      const handle = chance.guid();
 
       webdriver.switchFrame(handle);
 
@@ -188,7 +187,7 @@ describe("WebDriver", () => {
 
   describe("switchToParentFrame", () => {
     it("should call command", () => {
-      const handle = "framehandle";
+      const handle = chance.guid();
 
       webdriver.switchToParentFrame();
 
@@ -212,10 +211,10 @@ describe("WebDriver", () => {
 
   describe("setRect", () => {
     it("should call command", () => {
-      const width = 1920;
-      const height = 1080;
-      const x = 0;
-      const y = 0;
+      const width = chance.integer();
+      const height = chance.integer();
+      const x = chance.d10();
+      const y = chance.d10();
 
       webdriver.setRect({ width, height, x, y });
 
@@ -294,11 +293,17 @@ describe("WebDriver", () => {
   });
 
   describe("cookie", () => {
+    let cookieName;
+
+    beforeEach(() => {
+      cookieName = chance.guid();
+    });
+
     it("should call command", () => {
-      webdriver.cookie("foobar");
+      webdriver.cookie(cookieName);
 
       expect(commandMock.mock.calls[0]).toEqual([
-        `${webdriver.sessionUrl}/cookie/foobar`,
+        `${webdriver.sessionUrl}/cookie/${cookieName}`,
         "GET"
       ]);
     });
@@ -307,13 +312,13 @@ describe("WebDriver", () => {
   describe("addCookie", () => {
     it("should call command", () => {
       const cookie = {
-        name: "cookiename",
-        value: "cookievalue",
-        path: "cookiepath",
-        domain: "cookiedomain",
-        secure: "cookiesecure",
-        httpOnly: "cookiehttponly",
-        expiry: "cookieexpiry"
+        name: chance.guid(),
+        value: chance.guid(),
+        path: chance.guid(),
+        domain: chance.guid(),
+        secure: chance.guid(),
+        httpOnly: chance.guid(),
+        expiry: chance.guid()
       };
 
       webdriver.addCookie(cookie);
@@ -328,7 +333,7 @@ describe("WebDriver", () => {
 
   describe("deleteCookie", () => {
     it("should call command", () => {
-      const name = "cookiename";
+      const name = chance.guid();
 
       webdriver.deleteCookie(name);
 
