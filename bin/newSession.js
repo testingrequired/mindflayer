@@ -10,6 +10,7 @@ const mf = require("../dist/mindflayer");
   try {
     await driver.start();
     await driver.go("http://google.com");
+    await driver.close();
   } catch (e) {
     console.error(`Error going to url: ${e}`);
   }
