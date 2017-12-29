@@ -8,6 +8,28 @@ export class WebDriver {
     this.command = commandFn;
   }
 
+  get url() {
+    return this.command(`${this.sessionUrl}/url`, "GET");
+  }
+
+  get title() {
+    return (async () => {
+      const response = await this.command(`${this.sessionUrl}/title`, "GET");
+      const data = await response.json();
+      return data.value;
+    })();
+  }
+
+  get source() {
+    return this.command(`${this.sessionUrl}/source`, "GET");
+  }
+
+  get screenshot() {
+    return this.command(`${this.sessionUrl}/screenshot`, "GET");
+  }
+
+  // Session
+
   async start() {
     let sessionResponse, responseData, sessionId, driver;
 
@@ -43,6 +65,12 @@ export class WebDriver {
     return `${this.remoteUrl}/session/${this.sessionId}`;
   }
 
+  get timeouts() {
+    return this.command(`${this.sessionUrl}/timeouts`, "GET");
+  }
+
+  // Navigation
+
   go(url) {
     return this.command(`${this.sessionUrl}/url`, "POST", { url });
   }
@@ -59,21 +87,7 @@ export class WebDriver {
     return this.command(`${this.sessionUrl}/refresh`, "POST");
   }
 
-  get timeouts() {
-    return this.command(`${this.sessionUrl}/timeouts`, "GET");
-  }
-
-  get url() {
-    return this.command(`${this.sessionUrl}/url`, "GET");
-  }
-
-  get title() {
-    return (async () => {
-      const response = await this.command(`${this.sessionUrl}/title`, "GET");
-      const data = await response.json();
-      return data.value;
-    })();
-  }
+  // Windows
 
   get window() {
     return this.command(`${this.sessionUrl}/window`, "GET");
@@ -89,14 +103,6 @@ export class WebDriver {
 
   get windows() {
     return this.command(`${this.sessionUrl}/window/handles`, "GET");
-  }
-
-  switchFrame(handle) {
-    return this.command(`${this.sessionUrl}/frame`, "POST", { handle });
-  }
-
-  switchToParentFrame() {
-    return this.command(`${this.sessionUrl}/frame/parent`, "POST");
   }
 
   get rect() {
@@ -119,13 +125,23 @@ export class WebDriver {
     return this.command(`${this.sessionUrl}/window/fullscreen`, "POST");
   }
 
+  // Frames
+
+  switchFrame(handle) {
+    return this.command(`${this.sessionUrl}/frame`, "POST", { handle });
+  }
+
+  switchToParentFrame() {
+    return this.command(`${this.sessionUrl}/frame/parent`, "POST");
+  }
+
+  // Elements
+
   get activeElement() {
     return this.command(`${this.sessionUrl}/element/active`, "GET");
   }
 
-  get source() {
-    return this.command(`${this.sessionUrl}/source`, "GET");
-  }
+  // Cookies
 
   get cookies() {
     return this.command(`${this.sessionUrl}/cookie`, "GET");
@@ -149,6 +165,8 @@ export class WebDriver {
     return this.command(`${this.sessionUrl}/cookie`, "DELETE");
   }
 
+  // Alerts
+
   dismissAlert() {
     return this.command(`${this.sessionUrl}/alert/dismiss`, "POST");
   }
@@ -159,9 +177,5 @@ export class WebDriver {
 
   get alertText() {
     return this.command(`${this.sessionUrl}/alert/text`, "GET");
-  }
-
-  get screenshot() {
-    return this.command(`${this.sessionUrl}/screenshot`, "GET");
   }
 }
