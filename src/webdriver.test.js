@@ -88,6 +88,20 @@ describe("WebDriver", () => {
 
   // Session
 
+  describe("start", () => {
+    let sessionId;
+
+    beforeEach(() => {
+      sessionId = chance.guid();
+      responseJsonMock.mockReturnValue(Promise.resolve({ sessionId }));
+      webdriver.start();
+    });
+
+    it("should set webdriver session id", () => {
+      expect(webdriver.sessionId).toEqual(sessionId);
+    });
+  });
+
   describe("timeouts", () => {
     it("should call command", () => {
       webdriver.timeouts;

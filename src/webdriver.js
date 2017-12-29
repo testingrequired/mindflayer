@@ -35,32 +35,16 @@ export class WebDriver {
   async start() {
     let sessionResponse, responseData, sessionId, driver;
 
-    try {
-      sessionResponse = await this.command(
-        `${this.remoteUrl}/session`,
-        "POST",
-        {
-          desiredCapabilities: this.desiredCapabilities
-        }
-      );
-    } catch (e) {
-      console.error(`Error starting session: ${e}`);
-    }
+    sessionResponse = await this.command(`${this.remoteUrl}/session`, "POST", {
+      desiredCapabilities: this.desiredCapabilities
+    });
 
-    try {
-      responseData = await sessionResponse.json();
-    } catch (e) {
-      console.error(`Error getting session response data: ${e}`);
-    }
+    responseData = await sessionResponse.json();
+    sessionId = responseData.sessionId;
+    this.sessionId = sessionId;
 
-    try {
-      sessionId = responseData.sessionId;
-      this.sessionId = sessionId;
-      console.info(`Session ID: ${this.sessionId}`);
-      console.info(`Session URL: ${this.sessionUrl}`);
-    } catch (e) {
-      console.error(`Error getting session id: ${e}`);
-    }
+    console.info(`Session ID: ${this.sessionId}`);
+    console.info(`Session URL: ${this.sessionUrl}`);
   }
 
   get sessionUrl() {
