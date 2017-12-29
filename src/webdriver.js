@@ -1,5 +1,6 @@
 import { command } from "./command";
 import { WebElement } from "./webelement";
+import { By } from "../dist/mindflayer";
 
 export class WebDriver {
   constructor(remoteUrl, desiredCapabilities, commandFn = command) {
@@ -142,7 +143,7 @@ export class WebDriver {
     return this.command(`${this.sessionUrl}/element/active`, "GET");
   }
 
-  async findElement({ value, using = "css selector" }) {
+  async findElement({ value, using }) {
     const response = await this.command(`${this.sessionUrl}/element`, "POST", {
       using,
       value
@@ -157,8 +158,31 @@ export class WebDriver {
     return new WebElement(data.value.ELEMENT, this);
   }
 
-  async $(using, value) {
-    return this.findElement(using, value);
+  async findElements({ value, using }) {
+    const response = await this.command(`${this.sessionUrl}/elements`, "POST", {
+      using,
+      value
+    });
+
+    const data = await response.json();
+
+    if (data.status > 0) {
+      throw new Error(data.value.message);
+    }
+
+    return data.value.map(v => new WebElement(v.ELEMENT, this));
+  }
+
+  async $(cssSelector) {
+    return this.findElement(By.css(cssSelector));
+  }
+
+  async $$(cssSelector) {
+    return this.findElements(By.css(cssSelector));
+  }
+
+  async $x(xpathSelector) {
+    return this.findElements(By.xpath(xpathSelector));
   }
 
   // Cookies

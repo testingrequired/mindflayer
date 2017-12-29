@@ -14,7 +14,7 @@ const mf = require("../dist/mindflayer");
   console.log(title);
 
   try {
-    const body = await driver.$(mf.By.tagName("body"));
+    const body = await driver.$$(mf.By.xpath("#body1"));
     console.log(body);
   } catch (e) {
     console.log(`Error getting body: ${e}`);
