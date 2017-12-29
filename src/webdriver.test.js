@@ -31,6 +31,63 @@ describe("WebDriver", () => {
     });
   });
 
+  describe("url", () => {
+    it("should call command", () => {
+      webdriver.url;
+
+      expect(commandMock.mock.calls[0]).toEqual([
+        `${webdriver.sessionUrl}/url`,
+        "GET"
+      ]);
+    });
+  });
+
+  describe("title", () => {
+    let value;
+
+    beforeEach(() => {
+      value = chance.guid();
+      responseJsonMock.mockReturnValue(Promise.resolve({ value }));
+    });
+
+    it("should call command", () => {
+      webdriver.title;
+
+      expect(commandMock.mock.calls[0]).toEqual([
+        `${webdriver.sessionUrl}/title`,
+        "GET"
+      ]);
+    });
+
+    it("should return correct title", async () => {
+      expect(await webdriver.title).toEqual(value);
+    });
+  });
+
+  describe("source", () => {
+    it("should call command", () => {
+      webdriver.source;
+
+      expect(commandMock.mock.calls[0]).toEqual([
+        `${webdriver.sessionUrl}/source`,
+        "GET"
+      ]);
+    });
+  });
+
+  describe("screenshot", () => {
+    it("should call command", () => {
+      webdriver.screenshot;
+
+      expect(commandMock.mock.calls[0]).toEqual([
+        `${webdriver.sessionUrl}/screenshot`,
+        "GET"
+      ]);
+    });
+  });
+
+  // Session
+
   describe("timeouts", () => {
     it("should call command", () => {
       webdriver.timeouts;
@@ -42,16 +99,7 @@ describe("WebDriver", () => {
     });
   });
 
-  describe("url", () => {
-    it("should call command", () => {
-      webdriver.url;
-
-      expect(commandMock.mock.calls[0]).toEqual([
-        `${webdriver.sessionUrl}/url`,
-        "GET"
-      ]);
-    });
-  });
+  // Navigation
 
   describe("go", () => {
     it("should call command", () => {
@@ -100,27 +148,7 @@ describe("WebDriver", () => {
     });
   });
 
-  describe("title", () => {
-    let value;
-
-    beforeEach(() => {
-      value = chance.guid();
-      responseJsonMock.mockReturnValue(Promise.resolve({ value }));
-    });
-
-    it("should call command", () => {
-      webdriver.title;
-
-      expect(commandMock.mock.calls[0]).toEqual([
-        `${webdriver.sessionUrl}/title`,
-        "GET"
-      ]);
-    });
-
-    it("should return correct title", async () => {
-      expect(await webdriver.title).toEqual(value);
-    });
-  });
+  // Windows
 
   describe("window", () => {
     it("should call command", () => {
@@ -167,33 +195,6 @@ describe("WebDriver", () => {
       expect(commandMock.mock.calls[0]).toEqual([
         `${webdriver.sessionUrl}/window/handles`,
         "GET"
-      ]);
-    });
-  });
-
-  describe("switchFrame", () => {
-    it("should call command", () => {
-      const handle = chance.guid();
-
-      webdriver.switchFrame(handle);
-
-      expect(commandMock.mock.calls[0]).toEqual([
-        `${webdriver.sessionUrl}/frame`,
-        "POST",
-        { handle }
-      ]);
-    });
-  });
-
-  describe("switchToParentFrame", () => {
-    it("should call command", () => {
-      const handle = chance.guid();
-
-      webdriver.switchToParentFrame();
-
-      expect(commandMock.mock.calls[0]).toEqual([
-        `${webdriver.sessionUrl}/frame/parent`,
-        "POST"
       ]);
     });
   });
@@ -259,6 +260,37 @@ describe("WebDriver", () => {
     });
   });
 
+  // Frames
+
+  describe("switchFrame", () => {
+    it("should call command", () => {
+      const handle = chance.guid();
+
+      webdriver.switchFrame(handle);
+
+      expect(commandMock.mock.calls[0]).toEqual([
+        `${webdriver.sessionUrl}/frame`,
+        "POST",
+        { handle }
+      ]);
+    });
+  });
+
+  describe("switchToParentFrame", () => {
+    it("should call command", () => {
+      const handle = chance.guid();
+
+      webdriver.switchToParentFrame();
+
+      expect(commandMock.mock.calls[0]).toEqual([
+        `${webdriver.sessionUrl}/frame/parent`,
+        "POST"
+      ]);
+    });
+  });
+
+  // Elements
+
   describe("activeElement", () => {
     it("should call command", () => {
       webdriver.activeElement;
@@ -270,16 +302,7 @@ describe("WebDriver", () => {
     });
   });
 
-  describe("source", () => {
-    it("should call command", () => {
-      webdriver.source;
-
-      expect(commandMock.mock.calls[0]).toEqual([
-        `${webdriver.sessionUrl}/source`,
-        "GET"
-      ]);
-    });
-  });
+  // Cookies
 
   describe("cookies", () => {
     it("should call command", () => {
@@ -355,6 +378,8 @@ describe("WebDriver", () => {
     });
   });
 
+  // Alerts
+
   describe("dismissAlert", () => {
     it("should call command", () => {
       webdriver.dismissAlert();
@@ -383,17 +408,6 @@ describe("WebDriver", () => {
 
       expect(commandMock.mock.calls[0]).toEqual([
         `${webdriver.sessionUrl}/alert/text`,
-        "GET"
-      ]);
-    });
-  });
-
-  describe("screenshot", () => {
-    it("should call command", () => {
-      webdriver.screenshot;
-
-      expect(commandMock.mock.calls[0]).toEqual([
-        `${webdriver.sessionUrl}/screenshot`,
         "GET"
       ]);
     });
