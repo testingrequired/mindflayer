@@ -1,5 +1,6 @@
 export class WebElement {
-  constructor(id) {
+  constructor(id, driver) {
     this.id = id;
+    this.driver = driver;
   }
 }

@@ -13,5 +13,12 @@ const mf = require("../dist/mindflayer");
   const title = await driver.title;
   console.log(title);
 
+  try {
+    const body = await driver.$(mf.By.tagName("body"));
+    console.log(body);
+  } catch (e) {
+    console.log(`Error getting body: ${e}`);
+  }
+
   await driver.close();
 })();

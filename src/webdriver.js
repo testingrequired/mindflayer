@@ -1,4 +1,5 @@
 import { command } from "./command";
+import { WebElement } from "./webelement";
 
 export class WebDriver {
   constructor(remoteUrl, desiredCapabilities, commandFn = command) {
@@ -139,6 +140,25 @@ export class WebDriver {
 
   get activeElement() {
     return this.command(`${this.sessionUrl}/element/active`, "GET");
+  }
+
+  async findElement({ value, using = "css selector" }) {
+    const response = await this.command(`${this.sessionUrl}/element`, "POST", {
+      using,
+      value
+    });
+
+    const data = await response.json();
+
+    if (data.status > 0) {
+      throw new Error(data.value.message);
+    }
+
+    return new WebElement(data.value.ELEMENT, this);
+  }
+
+  async $(using, value) {
+    return this.findElement(using, value);
   }
 
   // Cookies
