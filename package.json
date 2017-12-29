@@ -29,6 +29,7 @@
   },
   "jest": {
     "automock": false,
-    "setupFiles": ["./setupJest.js"]
+    "setupFiles": ["./setupJest.js"],
+    "collectCoverageFrom": ["src/**/*.js", "!src/index.js", "!src/**/*.test.js"]
   }
 }
