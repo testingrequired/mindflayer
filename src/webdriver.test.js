@@ -136,6 +136,23 @@ describe("WebDriver", () => {
     });
   });
 
+  describe("quit", () => {
+    beforeEach(() => {
+      webdriver.quit();
+    });
+
+    it("should call command", () => {
+      expect(commandMock.mock.calls[0]).toEqual([
+        `${webdriver.sessionUrl}`,
+        "DELETE"
+      ]);
+    });
+
+    it("should set sessionId to undefined", () => {
+      expect(webdriver.sessionId).toBeUndefined();
+    });
+  });
+
   describe("timeouts", () => {
     it("should call command", () => {
       webdriver.timeouts;

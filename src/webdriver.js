@@ -59,6 +59,12 @@ export class WebDriver {
     this.sessionId = sessionId;
   }
 
+  async quit() {
+    const response = await this.command(`${this.sessionUrl}`, "DELETE");
+    this.sessionId = undefined;
+    return await response.json();
+  }
+
   get sessionUrl() {
     return `${this.remoteUrl}/session/${this.sessionId}`;
   }

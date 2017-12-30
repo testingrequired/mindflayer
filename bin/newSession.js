@@ -13,8 +13,7 @@ const mf = require("../dist/mindflayer");
   const title = await driver.title;
   console.log("Title:", title);
 
-  const screenshot = await driver.screenshot;
-  console.log("Screenshot:", screenshot);
+  await driver.quit();
 
-  await driver.close();
+  console.log(driver.sessionId);
 })();
