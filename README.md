@@ -42,7 +42,7 @@ const { CapabilityOptions, WebDriver } = require("mindflayer");
 |      | GET    | /session/{session id}/timeouts                                 | Get Timeouts                |
 |      | POST   | /session/{session id}/timeouts                                 | Set Timeouts                |
 | ✅   | POST   | /session/{session id}/url                                      | Go                          | `driver.go(url)`           |
-|      | GET    | /session/{session id}/url                                      | Get Current Url             |
+| ✅   | GET    | /session/{session id}/url                                      | Get Current Url             | `driver.url`               |
 | ✅   | POST   | /session/{session id}/back                                     | Back                        | `driver.back()`            |
 | ✅   | POST   | /session/{session id}/forward                                  | Foward                      | `driver.forward()`         |
 | ✅   | POST   | /session/{session id}/refresh                                  | Refresh                     | `driver.refresh()`         |
@@ -77,7 +77,7 @@ const { CapabilityOptions, WebDriver } = require("mindflayer");
 |      | POST   | /session/{session id}/element/{element id}/click               | Element Click               |
 |      | POST   | /session/{session id}/element/{element id}/clear               | Element Clear               |
 |      | POST   | /session/{session id}/element/{element id}/value               | Element Send Keys           |
-|      | GET    | /session/{session id}/source                                   | Get Page Source             |
+| ✅   | GET    | /session/{session id}/source                                   | Get Page Source             | `driver.source`            |
 |      | POST   | /session/{session id}/execute/sync                             | Execute Script              |
 |      | POST   | /session/{session id}/execute/async                            | Execute Async Script        |
 |      | GET    | /session/{session id}/cookie                                   | Get All Cookies             |
@@ -91,7 +91,7 @@ const { CapabilityOptions, WebDriver } = require("mindflayer");
 |      | POST   | /session/{session id}/alert/accept                             | Accept Alert                |
 |      | GET    | /session/{session id}/alert/text                               | Get Alert Text              |
 |      | POST   | /session/{session id}/alert/text                               | Send Alert Text             |
-|      | GET    | /session/{session id}/screenshot                               | Take Screenshot             |
+| ✅   | GET    | /session/{session id}/screenshot                               | Take Screenshot             | `driver.screenshot`        |
 |      | GET    | /session/{session id}/element/{element id}/screenshot          | Take Element Screenshot     |
 
 ### Reference
