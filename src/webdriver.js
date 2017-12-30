@@ -1,6 +1,6 @@
 import { command } from "./command";
 import { WebElement } from "./webelement";
-import { By } from "../dist/mindflayer";
+import { By } from "./by";
 
 export class WebDriver {
   constructor(remoteUrl, desiredCapabilities, commandFn = command) {
