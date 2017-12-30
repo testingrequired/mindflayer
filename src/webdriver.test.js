@@ -120,6 +120,29 @@ describe("WebDriver", () => {
     });
   });
 
+  describe("screenshotElement", () => {
+    let elementId, value;
+
+    beforeEach(() => {
+      elementId = chance.guid();
+      value = chance.guid();
+      responseJsonMock.mockReturnValue(Promise.resolve({ value }));
+    });
+
+    it("should call command", async () => {
+      await webdriver.screenshotElement(elementId);
+
+      expect(commandMock.mock.calls[0]).toEqual([
+        `${webdriver.sessionUrl}/element/${elementId}/screenshot`,
+        "GET"
+      ]);
+    });
+
+    it("should return correct value", async () => {
+      expect(await webdriver.screenshotElement(elementId)).toEqual(value);
+    });
+  });
+
   // Session
 
   describe("start", () => {

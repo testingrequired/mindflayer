@@ -45,6 +45,17 @@ export class WebDriver {
     })();
   }
 
+  screenshotElement(elementId) {
+    return (async () => {
+      const response = await this.command(
+        `${this.sessionUrl}/element/${elementId}/screenshot`,
+        "GET"
+      );
+      const data = await response.json();
+      return data.value;
+    })();
+  }
+
   // Session
 
   async start() {

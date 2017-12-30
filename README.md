@@ -99,7 +99,7 @@ const { CapabilityOptions, WebDriver } = require("mindflayer");
 |      | GET    | /session/{session id}/alert/text                               | Get Alert Text              |
 |      | POST   | /session/{session id}/alert/text                               | Send Alert Text             |
 | ✅   | GET    | /session/{session id}/screenshot                               | Take Screenshot             | `driver.screenshot`                                 |
-|      | GET    | /session/{session id}/element/{element id}/screenshot          | Take Element Screenshot     |
+| ✅   | GET    | /session/{session id}/element/{element id}/screenshot          | Take Element Screenshot     | `driver.screenshotElement(elementId)`               |
 
 ### Reference
 
