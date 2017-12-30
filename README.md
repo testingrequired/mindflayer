@@ -34,21 +34,21 @@ const { CapabilityOptions, WebDriver } = require("mindflayer");
 
 ## Webdriver Implementation Progress
 
-| Done | Method | Path                                                           | Description                 | API                                                 |
-| ---- | ------ | -------------------------------------------------------------- | --------------------------- | --------------------------------------------------- |
-| ✅   | POST   | /session                                                       | New Session                 | `driver.start()`                                    |
+| Done | Method | Path                                                           | Description                 | API                        |
+| ---- | ------ | -------------------------------------------------------------- | --------------------------- | -------------------------- |
+| ✅   | POST   | /session                                                       | New Session                 | `driver.start()`           |
 |      | DELETE | /session/{session id}                                          | Delete Session              |
 |      | GET    | /status                                                        | Status                      |
 |      | GET    | /session/{session id}/timeouts                                 | Get Timeouts                |
 |      | POST   | /session/{session id}/timeouts                                 | Set Timeouts                |
-| ✅   | POST   | /session/{session id}/url                                      | Go                          | `driver.go(url)`                                    |
+| ✅   | POST   | /session/{session id}/url                                      | Go                          | `driver.go(url)`           |
 |      | GET    | /session/{session id}/url                                      | Get Current Url             |
-| ✅   | POST   | /session/{session id}/back                                     | Back                        | `driver.back()`                                     |
-| ✅   | POST   | /session/{session id}/forward                                  | Foward                      | `driver.forward()`                                  |
-| ✅   | POST   | /session/{session id}/refresh                                  | Refresh                     | `driver.refresh()`                                  |
-| ✅   | GET    | /session/{session id}/title                                    | Get Title                   | `driver.title`                                      |
+| ✅   | POST   | /session/{session id}/back                                     | Back                        | `driver.back()`            |
+| ✅   | POST   | /session/{session id}/forward                                  | Foward                      | `driver.forward()`         |
+| ✅   | POST   | /session/{session id}/refresh                                  | Refresh                     | `driver.refresh()`         |
+| ✅   | GET    | /session/{session id}/title                                    | Get Title                   | `driver.title`             |
 |      | GET    | /session/{session id}/window                                   | Get Window Handle           |
-| ✅   | DELETE | /session/{session id}/window                                   | Close Window                | `driver.close()`                                    |
+| ✅   | DELETE | /session/{session id}/window                                   | Close Window                | `driver.close()`           |
 |      | POST   | /session/{session id}/window                                   | Switch To Window            |
 |      | GET    | /session/{session id}/window/handles                           | Get Window Handles          |
 |      | POST   | /session/{session id}/frame                                    | Switch To Frame             |
@@ -59,9 +59,11 @@ const { CapabilityOptions, WebDriver } = require("mindflayer");
 |      | POST   | /session/{session id}/window/minimize                          | Minimize                    |
 |      | POST   | /session/{session id}/window/fullscreen                        | Fullscreen                  |
 |      | GET    | /session/{session id}/element/active                           | Get Active Element          |
-|      | POST   | /session/{session id}/element                                  | Find Element                | `driver.findElement(by)`, `driver.$(cssSelector)`   |
-|      | POST   | /session/{session id}/elements                                 | Find Elements               | `driver.findElements(by)`, `driver.$$(cssSelector)` |
-|      | POST   | /session/{session id}/elements                                 | Find Elements (XPath alias) | `driver.$x(xpathSelector)`                          |
+| ✅   | POST   | /session/{session id}/element                                  | Find Element                | `driver.findElement(by)`   |
+|      | POST   | /session/{session id}/element                                  | Find Element (CSS alias)    | `driver.$(cssSelector)`    |
+| ✅   | POST   | /session/{session id}/elements                                 | Find Elements               | `driver.findElements(by)`  |
+|      | POST   | /session/{session id}/elements                                 | Find Elements (CSS alias)   | `driver.$$(cssSelector)`   |
+|      | POST   | /session/{session id}/elements                                 | Find Elements (XPath alias) | `driver.$x(xpathSelector)` |
 |      | POST   | /session/{session id}/element/{element id}/element             | Find Element From Element   |
 |      | POST   | /session/{session id}/element/{element id}/elements            | Find Element From Elements  |
 |      | GET    | /session/{session id}/element/{element id}/selected            | Is Element Selected         |

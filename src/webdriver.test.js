@@ -371,11 +371,70 @@ describe("WebDriver", () => {
 
   describe("findElements", () => {
     describe("when one or more elements are found", () => {
+      let expectedElementIds;
+
+      beforeEach(() => {
+        expectedElementIds = chance.n(chance.guid, chance.d10());
+
+        responseJsonMock.mockReturnValue(
+          Promise.resolve({
+            status: 0,
+            value: expectedElementIds.map(elementId => ({
+              ELEMENT: elementId
+            }))
+          })
+        );
+      });
+
+      it("should return WebElement with found element's id", async () => {
+        const elements = await webdriver.findElements(By.css("html"));
+        const elementIds = elements.map(element => element.id);
+        expect(elementIds).toEqual(expectedElementIds);
+      });
+
       it("should return an array WebElements with found elements' ids");
     });
 
     describe("when zero elements are found", () => {
-      it("should return an empty array");
+      beforeEach(() => {
+        responseJsonMock.mockReturnValue(
+          Promise.resolve({
+            status: 0,
+            value: []
+          })
+        );
+      });
+
+      it("should return an empty array", async () => {
+        const elements = await webdriver.findElements(By.css("html"));
+        expect(elements).toEqual([]);
+      });
+    });
+
+    describe("when non zero status is returned", () => {
+      let message;
+
+      beforeEach(() => {
+        message = chance.string();
+
+        responseJsonMock.mockReturnValue(
+          Promise.resolve({
+            status: chance.d10(),
+            value: {
+              message
+            }
+          })
+        );
+      });
+
+      it("should throw error with response error message", async () => {
+        try {
+          await webdriver.findElements(By.css("html"));
+          jest.fail("no error thrown");
+        } catch (e) {
+          expect(e).toEqual(new Error(message));
+        }
+      });
     });
   });
 
