@@ -154,6 +154,17 @@ describe("WebDriver", () => {
   });
 
   describe("timeouts", () => {
+    let script, pageLoad, implicit;
+
+    beforeEach(() => {
+      script = chance.d10();
+      pageLoad = chance.d10();
+      implicit = chance.d10();
+      responseJsonMock.mockReturnValue(
+        Promise.resolve({ script, pageLoad, implicit })
+      );
+    });
+
     it("should call command", () => {
       webdriver.timeouts;
 
@@ -161,6 +172,10 @@ describe("WebDriver", () => {
         `${webdriver.sessionUrl}/timeouts`,
         "GET"
       ]);
+    });
+
+    it("should return correct title", async () => {
+      expect(await webdriver.timeouts).toEqual({ script, pageLoad, implicit });
     });
   });
 

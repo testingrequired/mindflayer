@@ -70,7 +70,11 @@ export class WebDriver {
   }
 
   get timeouts() {
-    return this.command(`${this.sessionUrl}/timeouts`, "GET");
+    return (async () => {
+      const response = await this.command(`${this.sessionUrl}/timeouts`, "GET");
+      const data = await response.json();
+      return data;
+    })();
   }
 
   // Navigation

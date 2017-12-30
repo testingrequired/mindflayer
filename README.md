@@ -46,7 +46,7 @@ const { CapabilityOptions, WebDriver } = require("mindflayer");
 | ✅   | POST   | /session                                                       | New Session                 | `driver.start()`                                    |
 | ✅   | DELETE | /session/{session id}                                          | Delete Session              | `driver.quit()`                                     |
 |      | GET    | /status                                                        | Status                      |
-|      | GET    | /session/{session id}/timeouts                                 | Get Timeouts                |
+| ✅   | GET    | /session/{session id}/timeouts                                 | Get Timeouts                | `driver.timeouts`                                   |
 |      | POST   | /session/{session id}/timeouts                                 | Set Timeouts                |
 | ✅   | POST   | /session/{session id}/url                                      | Go                          | `driver.go(url)`                                    |
 | ✅   | GET    | /session/{session id}/url                                      | Get Current Url             | `driver.url`                                        |
