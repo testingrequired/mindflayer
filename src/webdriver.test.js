@@ -351,6 +351,31 @@ describe("WebDriver", () => {
   });
 
   describe("findElement", () => {
+    let by;
+
+    beforeEach(() => {
+      by = By.css("html");
+
+      responseJsonMock.mockReturnValue(
+        Promise.resolve({
+          status: 0,
+          value: {
+            ELEMENT: chance.guid()
+          }
+        })
+      );
+    });
+
+    it("should call command", async () => {
+      await webdriver.findElement(by);
+
+      expect(commandMock.mock.calls[0]).toEqual([
+        `${webdriver.sessionUrl}/element`,
+        "POST",
+        by
+      ]);
+    });
+
     describe("when element found", () => {
       let elementId;
 
@@ -368,7 +393,7 @@ describe("WebDriver", () => {
       });
 
       it("should return WebElement with found element's id", async () => {
-        const element = await webdriver.findElement(By.css("html"));
+        const element = await webdriver.findElement(by);
         expect(element.id).toEqual(elementId);
       });
     });
@@ -389,7 +414,7 @@ describe("WebDriver", () => {
 
       it("should raise NoSuchElementError", async () => {
         try {
-          await webdriver.findElement(By.css("html"));
+          await webdriver.findElement(by);
           jest.fail("no error thrown");
         } catch (e) {
           expect(e).toEqual(new Error(message));
@@ -403,6 +428,33 @@ describe("WebDriver", () => {
   });
 
   describe("findElements", () => {
+    let by;
+
+    beforeEach(() => {
+      by = By.css("html");
+
+      responseJsonMock.mockReturnValue(
+        Promise.resolve({
+          status: 0,
+          value: [
+            {
+              ELEMENT: chance.guid()
+            }
+          ]
+        })
+      );
+    });
+
+    it("should call command", async () => {
+      await webdriver.findElements(by);
+
+      expect(commandMock.mock.calls[0]).toEqual([
+        `${webdriver.sessionUrl}/elements`,
+        "POST",
+        by
+      ]);
+    });
+
     describe("when one or more elements are found", () => {
       let expectedElementIds;
 
