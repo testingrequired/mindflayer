@@ -11,14 +11,10 @@ const mf = require("../dist/mindflayer");
   await driver.go("http://google.com");
 
   const title = await driver.title;
-  console.log(title);
+  console.log("Title:", title);
 
-  try {
-    const body = await driver.$$(mf.By.xpath("#body1"));
-    console.log(body);
-  } catch (e) {
-    console.log(`Error getting body: ${e}`);
-  }
+  const screenshot = await driver.screenshot;
+  console.log("Screenshot:", screenshot);
 
   await driver.close();
 })();
