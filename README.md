@@ -20,6 +20,13 @@ const { CapabilityOptions, WebDriver } = require("mindflayer");
 
   await driver.start();
   await driver.go("http://google.com");
+
+  const title = await driver.title;
+  console.log("Title:", title);
+
+  const screenshot = await driver.screenshot;
+  console.log("Screenshot:", screenshot);
+
   await driver.close();
 })();
 ```
