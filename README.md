@@ -81,7 +81,7 @@ const { CapabilityOptions, WebDriver } = require("mindflayer");
 |      | GET    | /session/{session id}/element/{element id}/name                | Get Element Tag Name        |
 |      | GET    | /session/{session id}/element/{element id}/rect                | Get Element Rect            |
 |      | GET    | /session/{session id}/element/{element id}/enabled             | Is Element Enabled          |
-|      | POST   | /session/{session id}/element/{element id}/click               | Element Click               |
+| ✅   | POST   | /session/{session id}/element/{element id}/click               | Element Click               | `driver.click(elementId)`                           |
 |      | POST   | /session/{session id}/element/{element id}/clear               | Element Clear               |
 |      | POST   | /session/{session id}/element/{element id}/value               | Element Send Keys           |
 | ✅   | GET    | /session/{session id}/source                                   | Get Page Source             | `driver.source`                                     |

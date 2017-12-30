@@ -229,6 +229,21 @@ export class WebDriver {
     return this.findElements(By.xpath(xpathSelector));
   }
 
+  async click(elementId) {
+    const response = await this.command(
+      `${this.sessionUrl}/element/${elementId}/click`,
+      "POST"
+    );
+
+    const data = await response.json();
+
+    if (data.status > 0) {
+      throw new Error(data.value.message);
+    }
+
+    return data.value;
+  }
+
   // Cookies
 
   get cookies() {

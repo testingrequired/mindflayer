@@ -718,6 +718,70 @@ describe("WebDriver", () => {
     it("should call findElements with xpath strategy");
   });
 
+  describe("click", () => {
+    let elementId, clickResponse;
+
+    beforeEach(() => {
+      elementId = chance.guid();
+      clickResponse = {
+        status: 0,
+        value: null
+      };
+      responseJsonMock.mockReturnValue(Promise.resolve(clickResponse));
+    });
+
+    it("should call command", () => {
+      webdriver.click(elementId);
+
+      expect(commandMock.mock.calls[0]).toEqual([
+        `${webdriver.sessionUrl}/element/${elementId}/click`,
+        "POST"
+      ]);
+    });
+
+    describe("when element is clickable", () => {
+      it("should return null on success", async () => {
+        expect(await webdriver.click(elementId)).toBeNull();
+      });
+    });
+
+    describe("when element is blocked by another element", () => {
+      const message = "click intercepted";
+
+      beforeEach(() => {
+        clickResponse.status = chance.d10();
+        clickResponse.value = { message };
+      });
+
+      it("should throw click intercepted error", async () => {
+        try {
+          await webdriver.click(elementId);
+          jest.fn("error not thrown");
+        } catch (e) {
+          expect(e).toEqual(new Error(message));
+        }
+      });
+    });
+
+    describe("when element is outside viewport", () => {
+      const message = "element not interactable";
+
+      beforeEach(() => {
+        clickResponse.status = chance.d10();
+        clickResponse.value = { message };
+      });
+
+      it("should throw element not interactable error", async () => {
+        try {
+          await webdriver.click(elementId);
+          jest.fn("error not thrown");
+        } catch (e) {
+          expect(e).toEqual(new Error(message));
+        }
+      });
+    });
+  });
+
   // Cookies
 
   describe("cookies", () => {
