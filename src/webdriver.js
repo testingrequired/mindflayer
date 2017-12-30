@@ -194,6 +194,25 @@ export class WebDriver {
     return new WebElement(data.value.ELEMENT, this);
   }
 
+  async findElementsFromElement(fromElementId, { value, using }) {
+    const response = await this.command(
+      `${this.sessionUrl}/element/${fromElementId}/elements`,
+      "POST",
+      {
+        using,
+        value
+      }
+    );
+
+    const data = await response.json();
+
+    if (data.status > 0) {
+      throw new Error(data.value.message);
+    }
+
+    return data.value.map(v => new WebElement(v.ELEMENT, this));
+  }
+
   async $(cssSelector) {
     return this.findElement(By.css(cssSelector));
   }

@@ -617,6 +617,84 @@ describe("WebDriver", () => {
     });
   });
 
+  describe("findElementsFromElement", () => {
+    let by, fromElementId;
+
+    beforeEach(() => {
+      by = By.css("html");
+      fromElementId = chance.guid();
+
+      responseJsonMock.mockReturnValue(
+        Promise.resolve({
+          status: 0,
+          value: chance.n(chance.guid, chance.d10()).map(elementId => ({
+            ELEMENT: elementId
+          }))
+        })
+      );
+    });
+
+    it("should call command", async () => {
+      await webdriver.findElementsFromElement(fromElementId, by);
+
+      expect(commandMock.mock.calls[0]).toEqual([
+        `${webdriver.sessionUrl}/element/${fromElementId}/elements`,
+        "POST",
+        by
+      ]);
+    });
+
+    describe("when element found", () => {
+      let expectedElementIds;
+
+      beforeEach(() => {
+        expectedElementIds = chance.n(chance.guid, chance.d10());
+
+        responseJsonMock.mockReturnValue(
+          Promise.resolve({
+            status: 0,
+            value: expectedElementIds.map(elementId => ({
+              ELEMENT: elementId
+            }))
+          })
+        );
+      });
+
+      it("should return WebElement with found element's id", async () => {
+        const elements = await webdriver.findElementsFromElement(
+          fromElementId,
+          by
+        );
+        const elementIds = elements.map(element => element.id);
+        expect(elementIds).toEqual(expectedElementIds);
+      });
+    });
+
+    describe("when element is not found", () => {
+      let message;
+
+      beforeEach(() => {
+        message = chance.string();
+
+        responseJsonMock.mockReturnValue(
+          Promise.resolve({
+            status: chance.d10(),
+            value: { message }
+          })
+        );
+      });
+
+      it("should raise NoSuchElementError", async () => {
+        try {
+          await webdriver.findElementFromElement(fromElementId, by);
+          jest.fail("no error thrown");
+        } catch (e) {
+          expect(e).toEqual(new Error(message));
+        }
+      });
+    });
+  });
+
   describe("$$", () => {
     it("should call findElements with css selector strategy");
   });
