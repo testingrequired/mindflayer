@@ -33,6 +33,13 @@ describe("WebDriver", () => {
   });
 
   describe("url", () => {
+    let url;
+
+    beforeEach(() => {
+      url = chance.url();
+      responseJsonMock.mockReturnValue(Promise.resolve({ url }));
+    });
+
     it("should call command", () => {
       webdriver.url;
 
@@ -40,6 +47,10 @@ describe("WebDriver", () => {
         `${webdriver.sessionUrl}/url`,
         "GET"
       ]);
+    });
+
+    it("should return correct url", async () => {
+      expect(await webdriver.url).toEqual(url);
     });
   });
 
@@ -66,6 +77,13 @@ describe("WebDriver", () => {
   });
 
   describe("source", () => {
+    let source;
+
+    beforeEach(() => {
+      source = chance.string();
+      responseJsonMock.mockReturnValue(Promise.resolve({ source }));
+    });
+
     it("should call command", () => {
       webdriver.source;
 
@@ -74,9 +92,20 @@ describe("WebDriver", () => {
         "GET"
       ]);
     });
+
+    it("should return correct source", async () => {
+      expect(await webdriver.source).toEqual(source);
+    });
   });
 
   describe("screenshot", () => {
+    let value;
+
+    beforeEach(() => {
+      value = chance.guid();
+      responseJsonMock.mockReturnValue(Promise.resolve({ value }));
+    });
+
     it("should call command", () => {
       webdriver.screenshot;
 
@@ -84,6 +113,10 @@ describe("WebDriver", () => {
         `${webdriver.sessionUrl}/screenshot`,
         "GET"
       ]);
+    });
+
+    it("should return correct value", async () => {
+      expect(await webdriver.screenshot).toEqual(value);
     });
   });
 

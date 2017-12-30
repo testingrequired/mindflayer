@@ -11,7 +11,11 @@ export class WebDriver {
   }
 
   get url() {
-    return this.command(`${this.sessionUrl}/url`, "GET");
+    return (async () => {
+      const response = await this.command(`${this.sessionUrl}/url`, "GET");
+      const data = await response.json();
+      return data.url;
+    })();
   }
 
   get title() {
@@ -23,11 +27,22 @@ export class WebDriver {
   }
 
   get source() {
-    return this.command(`${this.sessionUrl}/source`, "GET");
+    return (async () => {
+      const response = await this.command(`${this.sessionUrl}/source`, "GET");
+      const data = await response.json();
+      return data.source;
+    })();
   }
 
   get screenshot() {
-    return this.command(`${this.sessionUrl}/screenshot`, "GET");
+    return (async () => {
+      const response = await this.command(
+        `${this.sessionUrl}/screenshot`,
+        "GET"
+      );
+      const data = await response.json();
+      return data.value;
+    })();
   }
 
   // Session
