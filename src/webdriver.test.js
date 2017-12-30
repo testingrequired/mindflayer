@@ -423,6 +423,83 @@ describe("WebDriver", () => {
     });
   });
 
+  describe("findElementFromElement", () => {
+    let by, fromElementId;
+
+    beforeEach(() => {
+      by = By.css("html");
+      fromElementId = chance.guid();
+
+      responseJsonMock.mockReturnValue(
+        Promise.resolve({
+          status: 0,
+          value: {
+            ELEMENT: chance.guid()
+          }
+        })
+      );
+    });
+
+    it("should call command", async () => {
+      await webdriver.findElementFromElement(fromElementId, by);
+
+      expect(commandMock.mock.calls[0]).toEqual([
+        `${webdriver.sessionUrl}/element/${fromElementId}/element`,
+        "POST",
+        by
+      ]);
+    });
+
+    describe("when element found", () => {
+      let elementId;
+
+      beforeEach(() => {
+        elementId = chance.guid();
+
+        responseJsonMock.mockReturnValue(
+          Promise.resolve({
+            status: 0,
+            value: {
+              ELEMENT: elementId
+            }
+          })
+        );
+      });
+
+      it("should return WebElement with found element's id", async () => {
+        const element = await webdriver.findElementFromElement(
+          fromElementId,
+          by
+        );
+        expect(element.id).toEqual(elementId);
+      });
+    });
+
+    describe("when element is not found", () => {
+      let message;
+
+      beforeEach(() => {
+        message = chance.string();
+
+        responseJsonMock.mockReturnValue(
+          Promise.resolve({
+            status: chance.d10(),
+            value: { message }
+          })
+        );
+      });
+
+      it("should raise NoSuchElementError", async () => {
+        try {
+          await webdriver.findElementFromElement(fromElementId, by);
+          jest.fail("no error thrown");
+        } catch (e) {
+          expect(e).toEqual(new Error(message));
+        }
+      });
+    });
+  });
+
   describe("$", () => {
     it("should call findElement with css selector strategy");
   });
