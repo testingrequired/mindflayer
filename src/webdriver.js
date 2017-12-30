@@ -244,6 +244,21 @@ export class WebDriver {
     return data.value;
   }
 
+  async clear(elementId) {
+    const response = await this.command(
+      `${this.sessionUrl}/element/${elementId}/clear`,
+      "POST"
+    );
+
+    const data = await response.json();
+
+    if (data.status > 0) {
+      throw new Error(data.value.message);
+    }
+
+    return data.value;
+  }
+
   // Cookies
 
   get cookies() {

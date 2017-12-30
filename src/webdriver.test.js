@@ -782,6 +782,52 @@ describe("WebDriver", () => {
     });
   });
 
+  describe("clear", () => {
+    let elementId, clearResponse;
+
+    beforeEach(() => {
+      elementId = chance.guid();
+      clearResponse = {
+        status: 0,
+        value: null
+      };
+      responseJsonMock.mockReturnValue(Promise.resolve(clearResponse));
+    });
+
+    it("should call command", () => {
+      webdriver.clear(elementId);
+
+      expect(commandMock.mock.calls[0]).toEqual([
+        `${webdriver.sessionUrl}/element/${elementId}/clear`,
+        "POST"
+      ]);
+    });
+
+    describe("when element is clearable", () => {
+      it("should return null on success", async () => {
+        expect(await webdriver.clear(elementId)).toBeNull();
+      });
+    });
+
+    describe("when error is returned", () => {
+      const message = chance.string();
+
+      beforeEach(() => {
+        clearResponse.status = chance.d10();
+        clearResponse.value = { message };
+      });
+
+      it("should throw error", async () => {
+        try {
+          await webdriver.clear(elementId);
+          jest.fn("error not thrown");
+        } catch (e) {
+          expect(e).toEqual(new Error(message));
+        }
+      });
+    });
+  });
+
   // Cookies
 
   describe("cookies", () => {
