@@ -42,9 +42,6 @@ export class WebDriver {
     responseData = await sessionResponse.json();
     sessionId = responseData.sessionId;
     this.sessionId = sessionId;
-
-    console.info(`Session ID: ${this.sessionId}`);
-    console.info(`Session URL: ${this.sessionUrl}`);
   }
 
   get sessionUrl() {

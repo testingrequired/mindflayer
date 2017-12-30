@@ -1,4 +1,5 @@
 import { WebDriver } from "./webdriver";
+import { By } from "../dist/mindflayer";
 
 describe("WebDriver", () => {
   let webdriver, remoteUrl, desiredCapabilities, commandMock, responseJsonMock;
@@ -314,6 +315,76 @@ describe("WebDriver", () => {
         "GET"
       ]);
     });
+  });
+
+  describe("findElement", () => {
+    describe("when element found", () => {
+      let elementId;
+
+      beforeEach(() => {
+        elementId = chance.guid();
+
+        responseJsonMock.mockReturnValue(
+          Promise.resolve({
+            status: 0,
+            value: {
+              ELEMENT: elementId
+            }
+          })
+        );
+      });
+
+      it("should return WebElement with found element's id", async () => {
+        const element = await webdriver.findElement(By.css("html"));
+        expect(element.id).toEqual(elementId);
+      });
+    });
+
+    describe("when element is not found", () => {
+      let message;
+
+      beforeEach(() => {
+        message = chance.string();
+
+        responseJsonMock.mockReturnValue(
+          Promise.resolve({
+            status: chance.d10(),
+            value: { message }
+          })
+        );
+      });
+
+      it("should raise NoSuchElementError", async () => {
+        try {
+          await webdriver.findElement(By.css("html"));
+          jest.fail("no error thrown");
+        } catch (e) {
+          expect(e).toEqual(new Error(message));
+        }
+      });
+    });
+  });
+
+  describe("$", () => {
+    it("should call findElement with css selector strategy");
+  });
+
+  describe("findElements", () => {
+    describe("when one or more elements are found", () => {
+      it("should return an array WebElements with found elements' ids");
+    });
+
+    describe("when zero elements are found", () => {
+      it("should return an empty array");
+    });
+  });
+
+  describe("$$", () => {
+    it("should call findElements with css selector strategy");
+  });
+
+  describe("$x", () => {
+    it("should call findElements with xpath strategy");
   });
 
   // Cookies
