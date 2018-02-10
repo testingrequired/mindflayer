@@ -160,7 +160,7 @@ export class WebDriver {
     return this.command(`${this.sessionUrl}/element/active`, "GET");
   }
 
-  async findElement(by) {
+  async findElement(by, webElementClass = WebElement) {
     const response = await this.command(
       `${this.sessionUrl}/element`,
       "POST",
@@ -173,10 +173,10 @@ export class WebDriver {
       throw new Error(data.value.message);
     }
 
-    return new WebElement(data.value.ELEMENT, this);
+    return new webElementClass(data.value.ELEMENT, this);
   }
 
-  async findElements(by) {
+  async findElements(by, webElementClass = WebElement) {
     const response = await this.command(
       `${this.sessionUrl}/elements`,
       "POST",
@@ -189,10 +189,14 @@ export class WebDriver {
       throw new Error(data.value.message);
     }
 
-    return data.value.map(v => new WebElement(v.ELEMENT, this));
+    return data.value.map(v => new webElementClass(v.ELEMENT, this));
   }
 
-  async findElementFromElement(fromElementId, by) {
+  async findElementFromElement(
+    fromElementId,
+    by,
+    webElementClass = WebElement
+  ) {
     const response = await this.command(
       `${this.sessionUrl}/element/${fromElementId}/element`,
       "POST",
@@ -205,10 +209,14 @@ export class WebDriver {
       throw new Error(data.value.message);
     }
 
-    return new WebElement(data.value.ELEMENT, this);
+    return new webElementClass(data.value.ELEMENT, this);
   }
 
-  async findElementsFromElement(fromElementId, by) {
+  async findElementsFromElement(
+    fromElementId,
+    by,
+    webElementClass = WebElement
+  ) {
     const response = await this.command(
       `${this.sessionUrl}/element/${fromElementId}/elements`,
       "POST",
@@ -221,19 +229,19 @@ export class WebDriver {
       throw new Error(data.value.message);
     }
 
-    return data.value.map(v => new WebElement(v.ELEMENT, this));
+    return data.value.map(v => new webElementClass(v.ELEMENT, this));
   }
 
-  async $(cssSelector) {
-    return this.findElement(By.css(cssSelector));
+  async $(cssSelector, webElementClass) {
+    return this.findElement(By.css(cssSelector), webElementClass);
   }
 
-  async $$(cssSelector) {
-    return this.findElements(By.css(cssSelector));
+  async $$(cssSelector, webElementClass) {
+    return this.findElements(By.css(cssSelector), webElementClass);
   }
 
-  async $x(xpathSelector) {
-    return this.findElements(By.xpath(xpathSelector));
+  async $x(xpathSelector, webElementClass) {
+    return this.findElements(By.xpath(xpathSelector), webElementClass);
   }
 
   async click(elementId) {

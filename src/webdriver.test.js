@@ -1,5 +1,5 @@
 import { WebDriver } from "./webdriver";
-import { By } from "../dist/mindflayer";
+import { By, WebElement } from "../dist/mindflayer";
 
 describe("WebDriver", () => {
   let webdriver, remoteUrl, desiredCapabilities, commandMock, responseJsonMock;
@@ -406,7 +406,7 @@ describe("WebDriver", () => {
   });
 
   describe("findElement", () => {
-    let by;
+    let by, element;
 
     beforeEach(() => {
       by = By.css("html");
@@ -447,8 +447,19 @@ describe("WebDriver", () => {
         );
       });
 
+      it("should return WebElement", async () => {
+        element = await webdriver.findElement(by, WebElement);
+        expect(element).toBeInstanceOf(WebElement);
+      });
+
+      it("should return custom WebElement", async () => {
+        class CustomWebElement extends WebElement {}
+        element = await webdriver.findElement(by, CustomWebElement);
+        expect(element).toBeInstanceOf(CustomWebElement);
+      });
+
       it("should return WebElement with found element's id", async () => {
-        const element = await webdriver.findElement(by);
+        element = await webdriver.findElement(by);
         expect(element.id).toEqual(elementId);
       });
     });
@@ -479,7 +490,7 @@ describe("WebDriver", () => {
   });
 
   describe("findElementFromElement", () => {
-    let by, fromElementId;
+    let by, element, fromElementId;
 
     beforeEach(() => {
       by = By.css("html");
@@ -521,11 +532,27 @@ describe("WebDriver", () => {
         );
       });
 
-      it("should return WebElement with found element's id", async () => {
-        const element = await webdriver.findElementFromElement(
+      it("should return WebElement", async () => {
+        element = await webdriver.findElementFromElement(
           fromElementId,
-          by
+          by,
+          WebElement
         );
+        expect(element).toBeInstanceOf(WebElement);
+      });
+
+      it("should return custom WebElement", async () => {
+        class CustomWebElement extends WebElement {}
+        element = await webdriver.findElementFromElement(
+          fromElementId,
+          by,
+          CustomWebElement
+        );
+        expect(element).toBeInstanceOf(CustomWebElement);
+      });
+
+      it("should return WebElement with found element's id", async () => {
+        element = await webdriver.findElementFromElement(fromElementId, by);
         expect(element.id).toEqual(elementId);
       });
     });
@@ -560,7 +587,7 @@ describe("WebDriver", () => {
   });
 
   describe("findElements", () => {
-    let by;
+    let by, elements;
 
     beforeEach(() => {
       by = By.css("html");
@@ -604,7 +631,7 @@ describe("WebDriver", () => {
       });
 
       it("should return WebElement with found element's id", async () => {
-        const elements = await webdriver.findElements(By.css("html"));
+        elements = await webdriver.findElements(By.css("html"));
         const elementIds = elements.map(element => element.id);
         expect(elementIds).toEqual(expectedElementIds);
       });
@@ -656,7 +683,7 @@ describe("WebDriver", () => {
   });
 
   describe("findElementsFromElement", () => {
-    let by, fromElementId;
+    let by, fromElementId, elements;
 
     beforeEach(() => {
       by = By.css("html");
@@ -698,11 +725,21 @@ describe("WebDriver", () => {
         );
       });
 
-      it("should return WebElement with found element's id", async () => {
-        const elements = await webdriver.findElementsFromElement(
-          fromElementId,
-          by
+      it("should return WebElements", async () => {
+        elements = await webdriver.findElements(by, WebElement);
+        elements.forEach(element => expect(element).toBeInstanceOf(WebElement));
+      });
+
+      it("should return custom WebElements", async () => {
+        class CustomWebElement extends WebElement {}
+        elements = await webdriver.findElements(by, CustomWebElement);
+        elements.forEach(element =>
+          expect(element).toBeInstanceOf(CustomWebElement)
         );
+      });
+
+      it("should return WebElement with found element's id", async () => {
+        elements = await webdriver.findElementsFromElement(fromElementId, by);
         const elementIds = elements.map(element => element.id);
         expect(elementIds).toEqual(expectedElementIds);
       });
