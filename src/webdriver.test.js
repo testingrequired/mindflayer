@@ -583,7 +583,19 @@ describe("WebDriver", () => {
   });
 
   describe("$", () => {
-    it("should call findElement with css selector strategy");
+    let by, findElementMock, selector;
+
+    beforeEach(() => {
+      selector = chance.guid();
+      by = By.css(selector);
+      findElementMock = jest.fn();
+      webdriver.findElement = findElementMock;
+    });
+
+    it("should call findElement with css selector strategy", () => {
+      webdriver.$(selector);
+      expect(findElementMock.mock.calls[0]).toEqual([by, undefined]);
+    });
   });
 
   describe("findElements", () => {
@@ -771,7 +783,19 @@ describe("WebDriver", () => {
   });
 
   describe("$$", () => {
-    it("should call findElements with css selector strategy");
+    let by, findElementsMock, selector;
+
+    beforeEach(() => {
+      selector = chance.guid();
+      by = By.css(selector);
+      findElementsMock = jest.fn();
+      webdriver.findElements = findElementsMock;
+    });
+
+    it("should call findElements with css selector strategy", () => {
+      webdriver.$$(selector);
+      expect(findElementsMock.mock.calls[0]).toEqual([by, undefined]);
+    });
   });
 
   describe("$x", () => {
