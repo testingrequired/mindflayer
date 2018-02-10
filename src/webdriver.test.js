@@ -1,5 +1,6 @@
 import { WebDriver } from "./webdriver";
 import { By, WebElement } from "../dist/mindflayer";
+import { NoSuchElementError } from "./errors";
 
 describe("WebDriver", () => {
   let webdriver, remoteUrl, desiredCapabilities, commandMock, responseJsonMock;
@@ -483,7 +484,7 @@ describe("WebDriver", () => {
           await webdriver.findElement(by);
           jest.fail("no error thrown");
         } catch (e) {
-          expect(e).toEqual(new Error(message));
+          expect(e).toEqual(new NoSuchElementError(message));
         }
       });
     });
@@ -576,7 +577,7 @@ describe("WebDriver", () => {
           await webdriver.findElementFromElement(fromElementId, by);
           jest.fail("no error thrown");
         } catch (e) {
-          expect(e).toEqual(new Error(message));
+          expect(e).toEqual(new NoSuchElementError(message));
         }
       });
     });

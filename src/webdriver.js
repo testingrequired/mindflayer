@@ -1,6 +1,7 @@
 import { command } from "./command";
 import { WebElement } from "./webelement";
 import { By } from "./by";
+import { NoSuchElementError } from "./errors";
 
 export class WebDriver {
   constructor(remoteUrl, desiredCapabilities, commandFn = command) {
@@ -170,7 +171,7 @@ export class WebDriver {
     const data = await response.json();
 
     if (data.status > 0) {
-      throw new Error(data.value.message);
+      throw new NoSuchElementError(data.value.message);
     }
 
     return new webElementClass(data.value.ELEMENT, this);
@@ -206,7 +207,7 @@ export class WebDriver {
     const data = await response.json();
 
     if (data.status > 0) {
-      throw new Error(data.value.message);
+      throw new NoSuchElementError(data.value.message);
     }
 
     return new webElementClass(data.value.ELEMENT, this);
