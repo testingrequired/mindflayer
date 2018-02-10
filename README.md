@@ -70,7 +70,7 @@ const { CapabilityOptions, WebDriver } = require("mindflayer");
 | ✅   | POST   | /session/{session id}/element                                  | Find Element (CSS alias)    | `driver.$(cssSelector)`                             |
 | ✅   | POST   | /session/{session id}/elements                                 | Find Elements               | `driver.findElements(by)`                           |
 | ✅   | POST   | /session/{session id}/elements                                 | Find Elements (CSS alias)   | `driver.$$(cssSelector)`                            |
-|      | POST   | /session/{session id}/elements                                 | Find Elements (XPath alias) | `driver.$x(xpathSelector)`                          |
+| ✅   | POST   | /session/{session id}/elements                                 | Find Elements (XPath alias) | `driver.$x(xpathSelector)`                          |
 | ✅   | POST   | /session/{session id}/element/{element id}/element             | Find Element From Element   | `driver.findElementFromElement(fromElementId, by)`  |
 | ✅   | POST   | /session/{session id}/element/{element id}/elements            | Find Element From Elements  | `driver.findElementsFromElement(fromElementId, by)` |
 |      | GET    | /session/{session id}/element/{element id}/selected            | Is Element Selected         |

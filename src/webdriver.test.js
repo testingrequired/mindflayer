@@ -799,7 +799,19 @@ describe("WebDriver", () => {
   });
 
   describe("$x", () => {
-    it("should call findElements with xpath strategy");
+    let by, findElementsMock, selector;
+
+    beforeEach(() => {
+      selector = chance.guid();
+      by = By.xpath(selector);
+      findElementsMock = jest.fn();
+      webdriver.findElements = findElementsMock;
+    });
+
+    it("should call findElements with css selector strategy", () => {
+      webdriver.$x(selector);
+      expect(findElementsMock.mock.calls[0]).toEqual([by, undefined]);
+    });
   });
 
   describe("click", () => {
