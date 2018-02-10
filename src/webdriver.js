@@ -160,44 +160,11 @@ export class WebDriver {
     return this.command(`${this.sessionUrl}/element/active`, "GET");
   }
 
-  async findElement({ value, using }) {
-    const response = await this.command(`${this.sessionUrl}/element`, "POST", {
-      using,
-      value
-    });
-
-    const data = await response.json();
-
-    if (data.status > 0) {
-      throw new Error(data.value.message);
-    }
-
-    return new WebElement(data.value.ELEMENT, this);
-  }
-
-  async findElements({ value, using }) {
-    const response = await this.command(`${this.sessionUrl}/elements`, "POST", {
-      using,
-      value
-    });
-
-    const data = await response.json();
-
-    if (data.status > 0) {
-      throw new Error(data.value.message);
-    }
-
-    return data.value.map(v => new WebElement(v.ELEMENT, this));
-  }
-
-  async findElementFromElement(fromElementId, { value, using }) {
+  async findElement(by) {
     const response = await this.command(
-      `${this.sessionUrl}/element/${fromElementId}/element`,
+      `${this.sessionUrl}/element`,
       "POST",
-      {
-        using,
-        value
-      }
+      by
     );
 
     const data = await response.json();
@@ -209,14 +176,43 @@ export class WebDriver {
     return new WebElement(data.value.ELEMENT, this);
   }
 
-  async findElementsFromElement(fromElementId, { value, using }) {
+  async findElements(by) {
+    const response = await this.command(
+      `${this.sessionUrl}/elements`,
+      "POST",
+      by
+    );
+
+    const data = await response.json();
+
+    if (data.status > 0) {
+      throw new Error(data.value.message);
+    }
+
+    return data.value.map(v => new WebElement(v.ELEMENT, this));
+  }
+
+  async findElementFromElement(fromElementId, by) {
+    const response = await this.command(
+      `${this.sessionUrl}/element/${fromElementId}/element`,
+      "POST",
+      by
+    );
+
+    const data = await response.json();
+
+    if (data.status > 0) {
+      throw new Error(data.value.message);
+    }
+
+    return new WebElement(data.value.ELEMENT, this);
+  }
+
+  async findElementsFromElement(fromElementId, by) {
     const response = await this.command(
       `${this.sessionUrl}/element/${fromElementId}/elements`,
       "POST",
-      {
-        using,
-        value
-      }
+      by
     );
 
     const data = await response.json();
