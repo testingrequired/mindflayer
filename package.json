@@ -5,17 +5,23 @@
   "main": "dist/mindflayer.js",
   "scripts": {
     "test": "jest",
-    "build": "microbundle --strict --compress --output dist",
-    "dev": "microbundle watch --strict --compress --output dist"
+    "build":
+      "rollup src/index.js -m -e 'node-fetch' -f cjs -o dist/mindflayer.js",
+    "dev":
+      "rollup src/index.js -w -m -e 'node-fetch' -f cjs -o dist/mindflayer.js",
+    "prepublish": "npm run build"
   },
   "author": "Kylee Tilley",
   "license": "MIT",
   "dependencies": {
     "jest": "^22.0.4",
     "jest-fetch-mock": "^1.4.0",
-    "node-fetch": "^1.7.3"
+    "node-fetch": "^1.7.3",
+    "rollup": "^0.53.0",
+    "source-map-support": "^0.5.0"
   },
   "devDependencies": {
+    "chance": "^1.0.12",
     "babel-core": "^6.26.0",
     "babel-jest": "^22.0.4",
     "babel-preset-env": "^1.6.1",
@@ -23,6 +29,7 @@
   },
   "jest": {
     "automock": false,
-    "setupFiles": ["./setupJest.js"]
+    "setupFiles": ["./setupJest.js"],
+    "collectCoverageFrom": ["src/**/*.js", "!src/index.js", "!src/**/*.test.js"]
   }
 }

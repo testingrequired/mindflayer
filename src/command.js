@@ -15,8 +15,10 @@ export function encodeQueryString(params) {
   );
 }
 
-export const command = (url, method = "GET", params = {}, fetch = fetch) => {
+export const command = (url, method = "GET", params = {}, fetchFn = fetch) => {
   const options = { method, headers: new Headers() };
+
+  options.headers.append("Accept", "application/json");
 
   if (method === "POST") {
     options.body = JSON.stringify(params);
@@ -25,5 +27,5 @@ export const command = (url, method = "GET", params = {}, fetch = fetch) => {
     url += encodeQueryString(params);
   }
 
-  return fetch(url, options);
+  return fetchFn(url, options);
 };
