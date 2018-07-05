@@ -13,7 +13,7 @@ export class WebDriver {
 
   get url() {
     return (async () => {
-      const response = await this.command(`${this.sessionUrl}/url`, "GET");
+      const response = await this.command(this.sessionUrl`/url`, "GET");
       const data = await response.json();
       return data.url;
     })();
@@ -21,7 +21,7 @@ export class WebDriver {
 
   get title() {
     return (async () => {
-      const response = await this.command(`${this.sessionUrl}/title`, "GET");
+      const response = await this.command(this.sessionUrl`/title`, "GET");
       const data = await response.json();
       return data.value;
     })();
@@ -29,7 +29,7 @@ export class WebDriver {
 
   get source() {
     return (async () => {
-      const response = await this.command(`${this.sessionUrl}/source`, "GET");
+      const response = await this.command(this.sessionUrl`/source`, "GET");
       const data = await response.json();
       return data.source;
     })();
@@ -37,10 +37,7 @@ export class WebDriver {
 
   get screenshot() {
     return (async () => {
-      const response = await this.command(
-        `${this.sessionUrl}/screenshot`,
-        "GET"
-      );
+      const response = await this.command(this.sessionUrl`/screenshot`, "GET");
       const data = await response.json();
       return data.value;
     })();
@@ -49,7 +46,7 @@ export class WebDriver {
   screenshotElement(elementId) {
     return (async () => {
       const response = await this.command(
-        `${this.sessionUrl}/element/${elementId}/screenshot`,
+        this.sessionUrl`/element/${elementId}/screenshot`,
         "GET"
       );
       const data = await response.json();
@@ -72,18 +69,18 @@ export class WebDriver {
   }
 
   async quit() {
-    const response = await this.command(`${this.sessionUrl}`, "DELETE");
+    const response = await this.command(this.sessionUrl``, "DELETE");
     this.sessionId = undefined;
     return await response.json();
   }
 
   get sessionUrl() {
-    return `${this.remoteUrl}/session/${this.sessionId}`;
+    return (_, path) => `${this.remoteUrl}/session/${this.sessionId}${path}`;
   }
 
   get timeouts() {
     return (async () => {
-      const response = await this.command(`${this.sessionUrl}/timeouts`, "GET");
+      const response = await this.command(this.sessionUrl`/timeouts`, "GET");
       const data = await response.json();
       return data;
     })();
@@ -92,81 +89,77 @@ export class WebDriver {
   // Navigation
 
   go(url) {
-    return this.command(`${this.sessionUrl}/url`, "POST", { url });
+    return this.command(this.sessionUrl`/url`, "POST", { url });
   }
 
   back(url) {
-    return this.command(`${this.sessionUrl}/back`, "POST");
+    return this.command(this.sessionUrl`/back`, "POST");
   }
 
   forward(url) {
-    return this.command(`${this.sessionUrl}/forward`, "POST");
+    return this.command(this.sessionUrl`/forward`, "POST");
   }
 
   refresh(url) {
-    return this.command(`${this.sessionUrl}/refresh`, "POST");
+    return this.command(this.sessionUrl`/refresh`, "POST");
   }
 
   // Windows
 
   get window() {
-    return this.command(`${this.sessionUrl}/window`, "GET");
+    return this.command(this.sessionUrl`/window`, "GET");
   }
 
   close(handle) {
-    return this.command(`${this.sessionUrl}/window`, "DELETE");
+    return this.command(this.sessionUrl`/window`, "DELETE");
   }
 
   switchWindow(handle) {
-    return this.command(`${this.sessionUrl}/window`, "POST", { handle });
+    return this.command(this.sessionUrl`/window`, "POST", { handle });
   }
 
   get windows() {
-    return this.command(`${this.sessionUrl}/window/handles`, "GET");
+    return this.command(this.sessionUrl`/window/handles`, "GET");
   }
 
   get rect() {
-    return this.command(`${this.sessionUrl}/window/rect`, "GET");
+    return this.command(this.sessionUrl`/window/rect`, "GET");
   }
 
   setRect(rect) {
-    return this.command(`${this.sessionUrl}/window/rect`, "POST", rect);
+    return this.command(this.sessionUrl`/window/rect`, "POST", rect);
   }
 
   maximize() {
-    return this.command(`${this.sessionUrl}/window/maximize`, "POST");
+    return this.command(this.sessionUrl`/window/maximize`, "POST");
   }
 
   minimize() {
-    return this.command(`${this.sessionUrl}/window/minimize`, "POST");
+    return this.command(this.sessionUrl`/window/minimize`, "POST");
   }
 
   fullscreen() {
-    return this.command(`${this.sessionUrl}/window/fullscreen`, "POST");
+    return this.command(this.sessionUrl`/window/fullscreen`, "POST");
   }
 
   // Frames
 
   switchFrame(handle) {
-    return this.command(`${this.sessionUrl}/frame`, "POST", { handle });
+    return this.command(this.sessionUrl`/frame`, "POST", { handle });
   }
 
   switchToParentFrame() {
-    return this.command(`${this.sessionUrl}/frame/parent`, "POST");
+    return this.command(this.sessionUrl`/frame/parent`, "POST");
   }
 
   // Elements
 
   get activeElement() {
-    return this.command(`${this.sessionUrl}/element/active`, "GET");
+    return this.command(this.sessionUrl`/element/active`, "GET");
   }
 
   async findElement(by, webElementClass = WebElement) {
-    const response = await this.command(
-      `${this.sessionUrl}/element`,
-      "POST",
-      by
-    );
+    const response = await this.command(this.sessionUrl`/element`, "POST", by);
 
     const data = await response.json();
 
@@ -178,11 +171,7 @@ export class WebDriver {
   }
 
   async findElements(by, webElementClass = WebElement) {
-    const response = await this.command(
-      `${this.sessionUrl}/elements`,
-      "POST",
-      by
-    );
+    const response = await this.command(this.sessionUrl`/elements`, "POST", by);
 
     const data = await response.json();
 
@@ -199,7 +188,7 @@ export class WebDriver {
     webElementClass = WebElement
   ) {
     const response = await this.command(
-      `${this.sessionUrl}/element/${fromElementId}/element`,
+      this.sessionUrl`/element/${fromElementId}/element`,
       "POST",
       by
     );
@@ -219,7 +208,7 @@ export class WebDriver {
     webElementClass = WebElement
   ) {
     const response = await this.command(
-      `${this.sessionUrl}/element/${fromElementId}/elements`,
+      this.sessionUrl`/element/${fromElementId}/elements`,
       "POST",
       by
     );
@@ -247,7 +236,7 @@ export class WebDriver {
 
   async click(elementId) {
     const response = await this.command(
-      `${this.sessionUrl}/element/${elementId}/click`,
+      this.sessionUrl`/element/${elementId}/click`,
       "POST"
     );
 
@@ -262,7 +251,7 @@ export class WebDriver {
 
   async clear(elementId) {
     const response = await this.command(
-      `${this.sessionUrl}/element/${elementId}/clear`,
+      this.sessionUrl`/element/${elementId}/clear`,
       "POST"
     );
 
@@ -278,38 +267,38 @@ export class WebDriver {
   // Cookies
 
   get cookies() {
-    return this.command(`${this.sessionUrl}/cookie`, "GET");
+    return this.command(this.sessionUrl`/cookie`, "GET");
   }
 
   cookie(name) {
-    return this.command(`${this.sessionUrl}/cookie/${name}`, "GET");
+    return this.command(this.sessionUrl`/cookie/${name}`, "GET");
   }
 
   addCookie(cookie) {
-    return this.command(`${this.sessionUrl}/cookie`, "POST", {
+    return this.command(this.sessionUrl`/cookie`, "POST", {
       cookie
     });
   }
 
   deleteCookie(name) {
-    return this.command(`${this.sessionUrl}/cookie/${name}`, "DELETE");
+    return this.command(this.sessionUrl`/cookie/${name}`, "DELETE");
   }
 
   deleteCookies() {
-    return this.command(`${this.sessionUrl}/cookie`, "DELETE");
+    return this.command(this.sessionUrl`/cookie`, "DELETE");
   }
 
   // Alerts
 
   dismissAlert() {
-    return this.command(`${this.sessionUrl}/alert/dismiss`, "POST");
+    return this.command(this.sessionUrl`/alert/dismiss`, "POST");
   }
 
   acceptAlert() {
-    return this.command(`${this.sessionUrl}/alert/accept`, "POST");
+    return this.command(this.sessionUrl`/alert/accept`, "POST");
   }
 
   get alertText() {
-    return this.command(`${this.sessionUrl}/alert/text`, "GET");
+    return this.command(this.sessionUrl`/alert/text`, "GET");
   }
 }

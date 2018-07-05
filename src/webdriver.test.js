@@ -45,7 +45,7 @@ describe("WebDriver", () => {
       webdriver.url;
 
       expect(commandMock.mock.calls[0]).toEqual([
-        `${webdriver.sessionUrl}/url`,
+        webdriver.sessionUrl`/url`,
         "GET"
       ]);
     });
@@ -67,7 +67,7 @@ describe("WebDriver", () => {
       webdriver.title;
 
       expect(commandMock.mock.calls[0]).toEqual([
-        `${webdriver.sessionUrl}/title`,
+        webdriver.sessionUrl`/title`,
         "GET"
       ]);
     });
@@ -89,7 +89,7 @@ describe("WebDriver", () => {
       webdriver.source;
 
       expect(commandMock.mock.calls[0]).toEqual([
-        `${webdriver.sessionUrl}/source`,
+        webdriver.sessionUrl`/source`,
         "GET"
       ]);
     });
@@ -111,7 +111,7 @@ describe("WebDriver", () => {
       webdriver.screenshot;
 
       expect(commandMock.mock.calls[0]).toEqual([
-        `${webdriver.sessionUrl}/screenshot`,
+        webdriver.sessionUrl`/screenshot`,
         "GET"
       ]);
     });
@@ -134,7 +134,7 @@ describe("WebDriver", () => {
       await webdriver.screenshotElement(elementId);
 
       expect(commandMock.mock.calls[0]).toEqual([
-        `${webdriver.sessionUrl}/element/${elementId}/screenshot`,
+        webdriver.sessionUrl`/element/${elementId}/screenshot`,
         "GET"
       ]);
     });
@@ -167,7 +167,7 @@ describe("WebDriver", () => {
 
     it("should call command", () => {
       expect(commandMock.mock.calls[0]).toEqual([
-        `${webdriver.sessionUrl}`,
+        webdriver.sessionUrl``,
         "DELETE"
       ]);
     });
@@ -193,7 +193,7 @@ describe("WebDriver", () => {
       webdriver.timeouts;
 
       expect(commandMock.mock.calls[0]).toEqual([
-        `${webdriver.sessionUrl}/timeouts`,
+        webdriver.sessionUrl`/timeouts`,
         "GET"
       ]);
     });
@@ -212,7 +212,7 @@ describe("WebDriver", () => {
       webdriver.go(url);
 
       expect(commandMock.mock.calls[0]).toEqual([
-        `${webdriver.sessionUrl}/url`,
+        webdriver.sessionUrl`/url`,
         "POST",
         { url }
       ]);
@@ -224,7 +224,7 @@ describe("WebDriver", () => {
       webdriver.back();
 
       expect(commandMock.mock.calls[0]).toEqual([
-        `${webdriver.sessionUrl}/back`,
+        webdriver.sessionUrl`/back`,
         "POST"
       ]);
     });
@@ -235,7 +235,7 @@ describe("WebDriver", () => {
       webdriver.forward();
 
       expect(commandMock.mock.calls[0]).toEqual([
-        `${webdriver.sessionUrl}/forward`,
+        webdriver.sessionUrl`/forward`,
         "POST"
       ]);
     });
@@ -246,7 +246,7 @@ describe("WebDriver", () => {
       webdriver.refresh();
 
       expect(commandMock.mock.calls[0]).toEqual([
-        `${webdriver.sessionUrl}/refresh`,
+        webdriver.sessionUrl`/refresh`,
         "POST"
       ]);
     });
@@ -259,7 +259,7 @@ describe("WebDriver", () => {
       webdriver.window;
 
       expect(commandMock.mock.calls[0]).toEqual([
-        `${webdriver.sessionUrl}/window`,
+        webdriver.sessionUrl`/window`,
         "GET"
       ]);
     });
@@ -272,7 +272,7 @@ describe("WebDriver", () => {
       webdriver.close(handle);
 
       expect(commandMock.mock.calls[0]).toEqual([
-        `${webdriver.sessionUrl}/window`,
+        webdriver.sessionUrl`/window`,
         "DELETE"
       ]);
     });
@@ -285,7 +285,7 @@ describe("WebDriver", () => {
       webdriver.switchWindow(handle);
 
       expect(commandMock.mock.calls[0]).toEqual([
-        `${webdriver.sessionUrl}/window`,
+        webdriver.sessionUrl`/window`,
         "POST",
         { handle }
       ]);
@@ -297,7 +297,7 @@ describe("WebDriver", () => {
       webdriver.windows;
 
       expect(commandMock.mock.calls[0]).toEqual([
-        `${webdriver.sessionUrl}/window/handles`,
+        webdriver.sessionUrl`/window/handles`,
         "GET"
       ]);
     });
@@ -308,7 +308,7 @@ describe("WebDriver", () => {
       webdriver.rect;
 
       expect(commandMock.mock.calls[0]).toEqual([
-        `${webdriver.sessionUrl}/window/rect`,
+        webdriver.sessionUrl`/window/rect`,
         "GET"
       ]);
     });
@@ -324,7 +324,7 @@ describe("WebDriver", () => {
       webdriver.setRect({ width, height, x, y });
 
       expect(commandMock.mock.calls[0]).toEqual([
-        `${webdriver.sessionUrl}/window/rect`,
+        webdriver.sessionUrl`/window/rect`,
         "POST",
         { width, height, x, y }
       ]);
@@ -336,7 +336,7 @@ describe("WebDriver", () => {
       webdriver.maximize();
 
       expect(commandMock.mock.calls[0]).toEqual([
-        `${webdriver.sessionUrl}/window/maximize`,
+        webdriver.sessionUrl`/window/maximize`,
         "POST"
       ]);
     });
@@ -347,7 +347,7 @@ describe("WebDriver", () => {
       webdriver.minimize();
 
       expect(commandMock.mock.calls[0]).toEqual([
-        `${webdriver.sessionUrl}/window/minimize`,
+        webdriver.sessionUrl`/window/minimize`,
         "POST"
       ]);
     });
@@ -358,7 +358,7 @@ describe("WebDriver", () => {
       webdriver.fullscreen();
 
       expect(commandMock.mock.calls[0]).toEqual([
-        `${webdriver.sessionUrl}/window/fullscreen`,
+        webdriver.sessionUrl`/window/fullscreen`,
         "POST"
       ]);
     });
@@ -373,7 +373,7 @@ describe("WebDriver", () => {
       webdriver.switchFrame(handle);
 
       expect(commandMock.mock.calls[0]).toEqual([
-        `${webdriver.sessionUrl}/frame`,
+        webdriver.sessionUrl`/frame`,
         "POST",
         { handle }
       ]);
@@ -387,7 +387,7 @@ describe("WebDriver", () => {
       webdriver.switchToParentFrame();
 
       expect(commandMock.mock.calls[0]).toEqual([
-        `${webdriver.sessionUrl}/frame/parent`,
+        webdriver.sessionUrl`/frame/parent`,
         "POST"
       ]);
     });
@@ -400,7 +400,7 @@ describe("WebDriver", () => {
       webdriver.activeElement;
 
       expect(commandMock.mock.calls[0]).toEqual([
-        `${webdriver.sessionUrl}/element/active`,
+        webdriver.sessionUrl`/element/active`,
         "GET"
       ]);
     });
@@ -426,7 +426,7 @@ describe("WebDriver", () => {
       await webdriver.findElement(by);
 
       expect(commandMock.mock.calls[0]).toEqual([
-        `${webdriver.sessionUrl}/element`,
+        webdriver.sessionUrl`/element`,
         "POST",
         by
       ]);
@@ -511,7 +511,7 @@ describe("WebDriver", () => {
       await webdriver.findElementFromElement(fromElementId, by);
 
       expect(commandMock.mock.calls[0]).toEqual([
-        `${webdriver.sessionUrl}/element/${fromElementId}/element`,
+        webdriver.sessionUrl`/element/${fromElementId}/element`,
         "POST",
         by
       ]);
@@ -621,7 +621,7 @@ describe("WebDriver", () => {
       await webdriver.findElements(by);
 
       expect(commandMock.mock.calls[0]).toEqual([
-        `${webdriver.sessionUrl}/elements`,
+        webdriver.sessionUrl`/elements`,
         "POST",
         by
       ]);
@@ -716,7 +716,7 @@ describe("WebDriver", () => {
       await webdriver.findElementsFromElement(fromElementId, by);
 
       expect(commandMock.mock.calls[0]).toEqual([
-        `${webdriver.sessionUrl}/element/${fromElementId}/elements`,
+        webdriver.sessionUrl`/element/${fromElementId}/elements`,
         "POST",
         by
       ]);
@@ -831,7 +831,7 @@ describe("WebDriver", () => {
       webdriver.click(elementId);
 
       expect(commandMock.mock.calls[0]).toEqual([
-        `${webdriver.sessionUrl}/element/${elementId}/click`,
+        webdriver.sessionUrl`/element/${elementId}/click`,
         "POST"
       ]);
     });
@@ -895,7 +895,7 @@ describe("WebDriver", () => {
       webdriver.clear(elementId);
 
       expect(commandMock.mock.calls[0]).toEqual([
-        `${webdriver.sessionUrl}/element/${elementId}/clear`,
+        webdriver.sessionUrl`/element/${elementId}/clear`,
         "POST"
       ]);
     });
@@ -932,7 +932,7 @@ describe("WebDriver", () => {
       webdriver.cookies;
 
       expect(commandMock.mock.calls[0]).toEqual([
-        `${webdriver.sessionUrl}/cookie`,
+        webdriver.sessionUrl`/cookie`,
         "GET"
       ]);
     });
@@ -949,7 +949,7 @@ describe("WebDriver", () => {
       webdriver.cookie(cookieName);
 
       expect(commandMock.mock.calls[0]).toEqual([
-        `${webdriver.sessionUrl}/cookie/${cookieName}`,
+        webdriver.sessionUrl`/cookie/${cookieName}`,
         "GET"
       ]);
     });
@@ -970,7 +970,7 @@ describe("WebDriver", () => {
       webdriver.addCookie(cookie);
 
       expect(commandMock.mock.calls[0]).toEqual([
-        `${webdriver.sessionUrl}/cookie`,
+        webdriver.sessionUrl`/cookie`,
         "POST",
         { cookie }
       ]);
@@ -984,7 +984,7 @@ describe("WebDriver", () => {
       webdriver.deleteCookie(name);
 
       expect(commandMock.mock.calls[0]).toEqual([
-        `${webdriver.sessionUrl}/cookie/${name}`,
+        webdriver.sessionUrl`/cookie/${name}`,
         "DELETE"
       ]);
     });
@@ -995,7 +995,7 @@ describe("WebDriver", () => {
       webdriver.deleteCookies();
 
       expect(commandMock.mock.calls[0]).toEqual([
-        `${webdriver.sessionUrl}/cookie`,
+        webdriver.sessionUrl`/cookie`,
         "DELETE"
       ]);
     });
@@ -1008,7 +1008,7 @@ describe("WebDriver", () => {
       webdriver.dismissAlert();
 
       expect(commandMock.mock.calls[0]).toEqual([
-        `${webdriver.sessionUrl}/alert/dismiss`,
+        webdriver.sessionUrl`/alert/dismiss`,
         "POST"
       ]);
     });
@@ -1019,7 +1019,7 @@ describe("WebDriver", () => {
       webdriver.acceptAlert();
 
       expect(commandMock.mock.calls[0]).toEqual([
-        `${webdriver.sessionUrl}/alert/accept`,
+        webdriver.sessionUrl`/alert/accept`,
         "POST"
       ]);
     });
@@ -1030,7 +1030,7 @@ describe("WebDriver", () => {
       webdriver.alertText;
 
       expect(commandMock.mock.calls[0]).toEqual([
-        `${webdriver.sessionUrl}/alert/text`,
+        webdriver.sessionUrl`/alert/text`,
         "GET"
       ]);
     });
